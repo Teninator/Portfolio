@@ -40,6 +40,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+    <!-- Three.js and OBJLoader for 3D Boids Mesh Loading -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -152,9 +156,9 @@
                     3D Fish Boids
                 </a>
                 
-                <button id="open-resume-nav" class="px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-400 to-blue-600 text-slate-950 font-bold hover:shadow-lg hover:shadow-cyan-500/20 transition-all flex items-center gap-2 text-xs">
+                <a href="Teni Adegbite Resume Q4.pdf" download="Teni Adegbite Resume Q4.pdf" target="_blank" class="px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-400 to-blue-600 text-slate-950 font-bold hover:shadow-lg hover:shadow-cyan-500/20 transition-all flex items-center gap-2 text-xs">
                     <i class="fa-solid fa-file-pdf"></i> Resume
-                </button>
+                </a>
             </nav>
 
             <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-white p-2 rounded-lg" aria-label="Toggle Navigation">
@@ -168,17 +172,14 @@
             <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white">Projects</a>
             <a href="#experience" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white">Experience</a>
             <a href="#interactive-demo" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white">3D Fish Boids</a>
-            <button id="open-resume-mobile" class="w-full py-2.5 rounded-lg bg-gradient-to-r from-cyan-400 to-blue-600 text-slate-950 font-bold text-center text-sm flex items-center justify-center gap-2">
-                <i class="fa-solid fa-file-pdf"></i> View Resume
-            </button>
+            <a href="Teni Adegbite Resume Q4.pdf" download="Teni Adegbite Resume Q4.pdf" target="_blank" class="w-full py-2.5 rounded-lg bg-gradient-to-r from-cyan-400 to-blue-600 text-slate-950 font-bold text-center text-sm flex items-center justify-center gap-2">
+                <i class="fa-solid fa-file-pdf"></i> Download Resume
+            </a>
         </div>
     </header>
 
-    <!-- Hero Section with Canvas Background + CLI Terminal -->
+    <!-- Hero Section -->
     <section class="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden" id="hero">
-        <canvas id="hero-canvas" class="absolute inset-0 w-full h-full pointer-events-auto z-0"></canvas>
-        <div class="absolute inset-0 bg-gradient-to-b from-[#070a12]/60 via-[#070a12]/80 to-[#070a12] pointer-events-none z-0"></div>
-
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 
@@ -198,11 +199,8 @@
                     </p>
 
                     <div class="flex flex-wrap gap-4 items-center pt-2">
-                        <button id="open-resume-hero" class="px-7 py-3.5 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-600 text-slate-950 font-bold hover:shadow-lg hover:shadow-cyan-500/25 transform hover:-translate-y-0.5 transition-all text-sm inline-flex items-center gap-2">
-                            <i class="fa-solid fa-file-pdf"></i> View Resume Modal
-                        </button>
-                        <a href="#projects" class="px-7 py-3.5 rounded-xl glass-panel text-white border border-slate-700 hover:border-cyan-400/50 hover:bg-slate-800/80 transition-all text-sm font-semibold inline-flex items-center gap-2">
-                            Explore Projects <i class="fa-solid fa-arrow-down text-cyan-400"></i>
+                        <a href="Teni Adegbite Resume Q4.pdf" download="Teni Adegbite Resume Q4.pdf" target="_blank" class="px-7 py-3.5 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-600 text-slate-950 font-bold hover:shadow-lg hover:shadow-cyan-500/25 transform hover:-translate-y-0.5 transition-all text-sm inline-flex items-center gap-2">
+                            <i class="fa-solid fa-file-pdf"></i> Download Resume (PDF)
                         </a>
                     </div>
 
@@ -230,12 +228,12 @@
                                 <span class="text-emerald-400">teni@toronto</span>:<span class="text-blue-400">~</span>$ init-portfolio --verbose
                             </div>
                             <div class="text-slate-400">
-                                [OK] Loaded B.S. Computer Science degree data.<br>
-                                [OK] Initialized OpenGL 3D Boids & C++ engines.<br>
-                                [OK] Connected RoboMaster Ridgebots firmware modules.<br>
+                                [OK] Loaded B.Sc. (Hons) Computer Science Q4 resume data.<br>
+                                [OK] Initialized 3D Boids & C++ engines.<br>
+                                [OK] Connected RoboMaster Ridgebots firmware & PRS sales modules.<br>
                             </div>
                             <div class="text-cyan-400">
-                                Type <span class="text-amber-300 font-bold">'help'</span> to see available CLI commands or <span class="text-amber-300 font-bold">'resume'</span> to launch the interactive resume modal.
+                                Type <span class="text-amber-300 font-bold">'help'</span> to see available CLI commands or <span class="text-amber-300 font-bold">'resume'</span> to download my resume.
                             </div>
                         </div>
                         <div class="p-3 bg-slate-900/80 border-t border-slate-800 flex items-center gap-2">
@@ -262,13 +260,13 @@
                         Ontario Tech University
                     </h2>
                     <p class="text-slate-300 leading-relaxed">
-                        Candidate for <strong class="text-white">Bachelor of Computer Science (Expected June 2027)</strong> with a specialization in <strong class="text-cyan-400">Digital Media</strong> and a Minor in Sustainability Studies.
+                        <strong class="text-white">B.Sc. (Hons) in Computer Science (Expected June 2027)</strong> with a specialization in <strong class="text-cyan-400">Digital Media</strong> and a Minor in Sustainability.
                     </p>
                     
                     <div class="glass-panel p-5 rounded-xl border border-slate-800/80 space-y-2">
                         <div class="text-xs font-mono text-amber-400 uppercase tracking-wider font-semibold">Undergraduate Thesis</div>
                         <p class="text-sm text-slate-200 italic">
-                            "Sustainable Game Development Workflows: Investigating Asset Management, Rework, and Version Control in Indie Game Development"
+                            "Sustainable Game Development Workflows: Asset Management, Rework, and Version Control in Indie Game Dev."
                         </p>
                     </div>
 
@@ -289,20 +287,20 @@
                     <div class="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-cyan-500/40 transition-colors">
                         <div class="flex items-center gap-3 text-cyan-400 mb-3">
                             <i class="fa-solid fa-trophy text-2xl"></i>
-                            <h3 class="font-bold text-white text-lg">Honors & Competitions</h3>
+                            <h3 class="font-bold text-white text-lg">Achievements & Initiatives</h3>
                         </div>
                         <ul class="space-y-3 text-xs text-slate-300">
                             <li class="flex items-start gap-2">
                                 <i class="fa-solid fa-angle-right text-cyan-400 mt-0.5"></i>
-                                <span><strong class="text-white">Ubisoft NEXT 2024:</strong> Selected participant in the Technical Art discipline building custom tools and shaders.</span>
+                                <span><strong class="text-white">Ubisoft NEXT 2024:</strong> Participated in the technical art discipline, building custom graphics tools and shaders.</span>
                             </li>
                             <li class="flex items-start gap-2">
                                 <i class="fa-solid fa-angle-right text-cyan-400 mt-0.5"></i>
-                                <span><strong class="text-white">ENACTUS x WiT Case Competition (3rd Place):</strong> Designed & pitched software under a strict 24-hour sprint.</span>
+                                <span><strong class="text-white">ENACTUS x WiT Case Competition (3rd Place):</strong> Designed, built, and pitched a software solution under a strict 24-hour deadline.</span>
                             </li>
                             <li class="flex items-start gap-2">
                                 <i class="fa-solid fa-angle-right text-cyan-400 mt-0.5"></i>
-                                <span><strong class="text-white">Technovation:</strong> Collaborated on educational accessibility mobile apps in distributed teams.</span>
+                                <span><strong class="text-white">Technovation:</strong> Collaborated in a distributed team environment to develop an educational accessibility mobile app.</span>
                             </li>
                         </ul>
                     </div>
@@ -329,15 +327,16 @@
                         <h3 class="font-bold text-white text-base">Languages</h3>
                     </div>
                     <div class="flex flex-wrap gap-2 text-xs font-mono">
-                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">C++</span>
                         <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">Python</span>
-                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">Dart</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">C++</span>
                         <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">Java</span>
                         <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">C#</span>
                         <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">JavaScript</span>
-                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">PHP</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">TypeScript</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">Dart</span>
                         <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">SQL</span>
-                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">Embedded C</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">C</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">HTML/CSS</span>
                     </div>
                 </div>
 
@@ -348,25 +347,27 @@
                     </div>
                     <div class="flex flex-wrap gap-2 text-xs font-mono">
                         <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">FastAPI</span>
-                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">Flutter (Riverpod)</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">Flutter</span>
                         <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">React</span>
                         <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">Next.js</span>
                         <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">Node.js</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">Express</span>
                         <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">REST APIs</span>
                     </div>
                 </div>
 
                 <div class="glass-panel p-6 rounded-2xl border border-slate-800">
                     <div class="flex items-center gap-3 text-emerald-400 mb-4">
-                        <i class="fa-solid fa-brain text-xl"></i>
-                        <h3 class="font-bold text-white text-base">Databases & AI</h3>
+                        <i class="fa-solid fa-database text-xl"></i>
+                        <h3 class="font-bold text-white text-base">Databases & Cloud</h3>
                     </div>
                     <div class="flex flex-wrap gap-2 text-xs font-mono">
-                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">YOLOv8 Vision</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">PostgreSQL</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">SQLite</span>
                         <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">Supabase</span>
                         <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">Firebase</span>
-                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">PostgreSQL</span>
-                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">SQLite / sqflite</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">MongoDB</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">Relational Schema</span>
                     </div>
                 </div>
 
@@ -376,12 +377,15 @@
                         <h3 class="font-bold text-white text-base">Tools & Practices</h3>
                     </div>
                     <div class="flex flex-wrap gap-2 text-xs font-mono">
-                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">Visual Studio</span>
-                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">Git / CI/CD</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">Git</span>
                         <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">Docker</span>
-                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">Linux System</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">CI/CD</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">Linux</span>
                         <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">Agile (Jira)</span>
-                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">GLSL Shaders</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">Unit Testing</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">STM32</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">UART</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200">Figma</span>
                     </div>
                 </div>
             </div>
@@ -426,65 +430,38 @@
             <!-- Projects Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch" id="projects-grid">
 
-                <!-- 1. FlipEngine -->
-                <div class="project-card card-perspective" data-category="cpp-graphics" data-tags="c++ opengl glsl visual studio game engine graphics memory">
+                <!-- 1. Ontario Tech Plus -->
+                <div class="project-card card-perspective" data-category="ai-fullstack" data-tags="flutter dart riverpod supabase mobile cross-platform accessibility high-contrast opendyslexic unit testing">
                     <div class="card-inner">
-                        <div class="card-front glass-panel border border-slate-800 p-6 flex flex-col justify-between hover:border-cyan-500/50 transition-all shadow-xl">
+                        <div class="card-front glass-panel border border-slate-800 p-6 flex flex-col justify-between hover:border-blue-500/50 transition-all shadow-xl">
                             <div>
                                 <div class="flex justify-between items-start mb-3">
-                                    <span class="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-lg"><i class="fa-solid fa-cubes"></i></span>
-                                    <span class="text-[10px] font-mono text-cyan-400 bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-800/60">C++ / Engine</span>
+                                    <span class="p-2.5 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20 text-lg"><i class="fa-solid fa-mobile-screen-button"></i></span>
+                                    <span class="text-[10px] font-mono text-blue-400 bg-blue-950/80 px-2 py-0.5 rounded border border-blue-800/60">Cross-Platform App</span>
                                 </div>
-                                <h3 class="text-xl font-bold text-white mb-2">FlipEngine (2.5D Engine)</h3>
-                                <p class="text-slate-300 text-xs leading-relaxed mb-3">Custom 2.5D game engine architected from scratch in Visual Studio with manual memory management, sprite batching, and perspective camera pipelines.</p>
+                                <h3 class="text-xl font-bold text-white mb-2">Ontario Tech Plus</h3>
+                                <p class="text-slate-300 text-xs leading-relaxed mb-3">Cross-platform student mobile app built in Flutter and Dart using Riverpod for state management and Supabase for live data updates.</p>
                             </div>
                             <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
-                                <span class="text-[10px] font-mono text-slate-400">C++ • OpenGL • GLSL</span>
-                                <span class="text-[11px] font-mono text-cyan-400">Hover/Tap <i class="fa-solid fa-rotate"></i></span>
+                                <span class="text-[10px] font-mono text-slate-400">Flutter • Dart • Supabase</span>
+                                <span class="text-[11px] font-mono text-blue-400">Hover/Tap <i class="fa-solid fa-rotate"></i></span>
                             </div>
                         </div>
-                        <div class="card-back glass-panel border border-cyan-500/40 p-6 flex flex-col justify-between bg-slate-900 shadow-2xl">
+                        <div class="card-back glass-panel border border-blue-500/40 p-6 flex flex-col justify-between bg-slate-900 shadow-2xl">
                             <div>
-                                <h4 class="text-base font-bold text-cyan-400 mb-2">Technical Highlights</h4>
-                                <ul class="text-slate-300 text-xs space-y-2 mb-4">
-                                    <li>• Multi-pass GLSL shaders for dynamic lighting & depth sorting.</li>
-                                    <li>• Optimized draw calls via sprite batching arrays & custom allocators.</li>
+                                <h4 class="text-base font-bold text-blue-400 mb-2">Accessibility & Testing</h4>
+                                <ul class="text-slate-300 text-xs space-y-2 mb-3">
+                                    <li>• Added accessibility options including high-contrast modes and OpenDyslexic font support.</li>
+                                    <li>• Ran unit tests and verified UI layouts across multiple screen sizes to prevent broken interfaces.</li>
                                 </ul>
                             </div>
-                            <a href="https://github.com/teninator" target="_blank" class="w-full py-2 rounded-lg bg-gradient-to-r from-cyan-400 to-blue-600 text-slate-950 font-bold text-center text-xs">View GitHub Repo <i class="fa-brands fa-github"></i></a>
+                            <a href="https://github.com/teninator" target="_blank" class="w-full py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold text-center text-xs">Mobile App Code <i class="fa-brands fa-github"></i></a>
                         </div>
                     </div>
                 </div>
 
-                <!-- 2. Fish Boids Simulation -->
-                <div class="project-card card-perspective" data-category="cpp-graphics" data-tags="c++ opengl glsl boids algorithms spatial partitioning linear algebra vaporwave predator">
-                    <div class="card-inner">
-                        <div class="card-front glass-panel border border-slate-800 p-6 flex flex-col justify-between hover:border-cyan-500/50 transition-all shadow-xl">
-                            <div>
-                                <div class="flex justify-between items-start mb-3">
-                                    <span class="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-lg"><i class="fa-solid fa-fish"></i></span>
-                                    <span class="text-[10px] font-mono text-cyan-400 bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-800/60">Algorithm & 3D</span>
-                                </div>
-                                <h3 class="text-xl font-bold text-white mb-2">Fish Boids Simulation</h3>
-                                <p class="text-slate-300 text-xs leading-relaxed mb-3">Implemented Reynolds' 3D flocking algorithm (separation, alignment, cohesion) simulating 10,000+ dynamic fish agents in C++ with custom spatial partitioning.</p>
-                            </div>
-                            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
-                                <span class="text-[10px] font-mono text-slate-400">O(n log n) • 60+ FPS</span>
-                                <span class="text-[11px] font-mono text-cyan-400">Hover/Tap <i class="fa-solid fa-rotate"></i></span>
-                            </div>
-                        </div>
-                        <div class="card-back glass-panel border border-cyan-500/40 p-6 flex flex-col justify-between bg-slate-900 shadow-2xl">
-                            <div>
-                                <h4 class="text-base font-bold text-cyan-400 mb-2">Performance Optimization</h4>
-                                <p class="text-slate-300 text-xs leading-relaxed mb-3">Reduced overhead from <code class="text-amber-300 font-mono">O(n²)</code> to <code class="text-emerald-400 font-mono">O(n log n)</code> via 3D spatial grids, boosting frame rates from 22 to 60+ FPS.</p>
-                            </div>
-                            <a href="#interactive-demo" class="w-full py-2 rounded-lg bg-gradient-to-r from-cyan-400 to-blue-600 text-slate-950 font-bold text-center text-xs">See WebGL Engine Demo <i class="fa-solid fa-play"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 3. GlycoLens AI Estimator -->
-                <div class="project-card card-perspective" data-category="ai-fullstack" data-tags="python fastapi yolov8 computer vision rest apis ai medical machine learning">
+                <!-- 2. GlycoLens AI Estimator -->
+                <div class="project-card card-perspective" data-category="ai-fullstack" data-tags="python fastapi yolov8 vision rest apis json machine learning food carbs">
                     <div class="card-inner">
                         <div class="card-front glass-panel border border-slate-800 p-6 flex flex-col justify-between hover:border-purple-500/50 transition-all shadow-xl">
                             <div>
@@ -492,8 +469,8 @@
                                     <span class="p-2.5 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 text-lg"><i class="fa-solid fa-eye"></i></span>
                                     <span class="text-[10px] font-mono text-purple-400 bg-purple-950/80 px-2 py-0.5 rounded border border-purple-800/60">AI Vision & API</span>
                                 </div>
-                                <h3 class="text-xl font-bold text-white mb-2">GlycoLens AI Estimator</h3>
-                                <p class="text-slate-300 text-xs leading-relaxed mb-3">AI clinical estimator processing meal photos via FastAPI backend and YOLOv8 object detection model with 88% bounding-box precision.</p>
+                                <h3 class="text-xl font-bold text-white mb-2">GlycoLens</h3>
+                                <p class="text-slate-300 text-xs leading-relaxed mb-3">Python FastAPI backend running YOLOv8 vision models to detect food items in meal photos with 88% accuracy.</p>
                             </div>
                             <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
                                 <span class="text-[10px] font-mono text-slate-400">Python • YOLOv8 • FastAPI</span>
@@ -502,25 +479,28 @@
                         </div>
                         <div class="card-back glass-panel border border-purple-500/40 p-6 flex flex-col justify-between bg-slate-900 shadow-2xl">
                             <div>
-                                <h4 class="text-base font-bold text-purple-400 mb-2">API Integration</h4>
-                                <p class="text-slate-300 text-xs leading-relaxed mb-3">Mapped vision labels against FatSecret REST APIs for sub-second carbohydrate data retrieval.</p>
+                                <h4 class="text-base font-bold text-purple-400 mb-2">Nutritional Intelligence</h4>
+                                <ul class="text-slate-300 text-xs space-y-2 mb-3">
+                                    <li>• Connected image model outputs to FatSecret REST APIs to pull nutritional/carb data in under a second.</li>
+                                    <li>• Formatted backend API endpoints to send structured JSON payloads directly to the front end.</li>
+                                </ul>
                             </div>
-                            <a href="https://github.com/teninator" target="_blank" class="w-full py-2 rounded-lg bg-purple-600 hover:bg-purple-500 text-white font-bold text-center text-xs">Repository <i class="fa-brands fa-github"></i></a>
+                            <a href="https://github.com/teninator" target="_blank" class="w-full py-2 rounded-lg bg-purple-600 hover:bg-purple-500 text-white font-bold text-center text-xs">AI Backend Code <i class="fa-brands fa-github"></i></a>
                         </div>
                     </div>
                 </div>
 
-                <!-- 4. Rootstrike Infrastructure Node -->
-                <div class="project-card card-perspective" data-category="embedded-robotics" data-tags="c++ stm32 nucleo uart embedded microcontrollers sensors firmware C">
+                <!-- 3. Rootstrike Infrastructure Node -->
+                <div class="project-card card-perspective" data-category="embedded-robotics" data-tags="c++ stm32 nucleo-f446re thermal firmware moving average filter uart telemetry">
                     <div class="card-inner">
                         <div class="card-front glass-panel border border-slate-800 p-6 flex flex-col justify-between hover:border-emerald-500/50 transition-all shadow-xl">
                             <div>
                                 <div class="flex justify-between items-start mb-3">
                                     <span class="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-lg"><i class="fa-solid fa-microchip"></i></span>
-                                    <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-800/60">Embedded Firmware</span>
+                                    <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-800/60">Embedded Systems</span>
                                 </div>
                                 <h3 class="text-xl font-bold text-white mb-2">Rootstrike Node</h3>
-                                <p class="text-slate-300 text-xs leading-relaxed mb-3">Air-cooled compute node firmware engineered on STM32 Nucleo-F446RE in C++ maintaining junction temperatures below 65°C.</p>
+                                <p class="text-slate-300 text-xs leading-relaxed mb-3">Thermal control firmware in C++ on an STM32 board (Nucleo-F446RE) keeping junction temperatures under 65°C.</p>
                             </div>
                             <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
                                 <span class="text-[10px] font-mono text-slate-400">C++ • STM32 • UART</span>
@@ -531,146 +511,101 @@
                             <div>
                                 <h4 class="text-base font-bold text-emerald-400 mb-2">DSP & Telemetry</h4>
                                 <ul class="text-slate-300 text-xs space-y-2 mb-3">
-                                    <li>• Moving Average Filter cut signal noise by 35%.</li>
-                                    <li>• High-frequency UART telemetry broadcasting metrics every 100ms.</li>
+                                    <li>• Wrote a digital Moving Average Filter cutting analog signal noise by 35%.</li>
+                                    <li>• Created UART telemetry routines broadcasting real-time system metrics every 100ms.</li>
                                 </ul>
                             </div>
-                            <a href="https://github.com/teninator" target="_blank" class="w-full py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-center text-xs">Embedded Source <i class="fa-brands fa-github"></i></a>
+                            <a href="https://github.com/teninator" target="_blank" class="w-full py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-center text-xs">Firmware Source <i class="fa-brands fa-github"></i></a>
                         </div>
                     </div>
                 </div>
 
-                <!-- 5. Ontario Tech Plus -->
-                <div class="project-card card-perspective" data-category="ai-fullstack" data-tags="flutter riverpod dart supabase mobile fullstack accessibility ui/ux">
-                    <div class="card-inner">
-                        <div class="card-front glass-panel border border-slate-800 p-6 flex flex-col justify-between hover:border-blue-500/50 transition-all shadow-xl">
-                            <div>
-                                <div class="flex justify-between items-start mb-3">
-                                    <span class="p-2.5 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20 text-lg"><i class="fa-solid fa-mobile-screen-button"></i></span>
-                                    <span class="text-[10px] font-mono text-blue-400 bg-blue-950/80 px-2 py-0.5 rounded border border-blue-800/60">Cross-Platform App</span>
-                                </div>
-                                <h3 class="text-xl font-bold text-white mb-2">Ontario Tech Plus</h3>
-                                <p class="text-slate-300 text-xs leading-relaxed mb-3">Student mobile app built with Flutter and Riverpod state management featuring Supabase data streaming and OpenDyslexic configurations.</p>
-                            </div>
-                            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
-                                <span class="text-[10px] font-mono text-slate-400">Flutter • Riverpod • Supabase</span>
-                                <span class="text-[11px] font-mono text-blue-400">Hover/Tap <i class="fa-solid fa-rotate"></i></span>
-                            </div>
-                        </div>
-                        <div class="card-back glass-panel border border-blue-500/40 p-6 flex flex-col justify-between bg-slate-900 shadow-2xl">
-                            <div>
-                                <h4 class="text-base font-bold text-blue-400 mb-2">Architecture</h4>
-                                <p class="text-slate-300 text-xs leading-relaxed mb-3">Reactive UI state trees, secure authentication streams, accessibility font toggles, and campus resource integrations.</p>
-                            </div>
-                            <a href="https://github.com/teninator" target="_blank" class="w-full py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold text-center text-xs">Mobile App Code <i class="fa-brands fa-github"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 6. Travel Diary Mobile App -->
-                <div class="project-card card-perspective" data-category="ai-fullstack" data-tags="flutter firebase sqflite figma database mobile offline-first">
-                    <div class="card-inner">
-                        <div class="card-front glass-panel border border-slate-800 p-6 flex flex-col justify-between hover:border-pink-500/50 transition-all shadow-xl">
-                            <div>
-                                <div class="flex justify-between items-start mb-3">
-                                    <span class="p-2.5 rounded-xl bg-pink-500/10 text-pink-400 border border-pink-500/20 text-lg"><i class="fa-solid fa-book-bookmark"></i></span>
-                                    <span class="text-[10px] font-mono text-pink-400 bg-pink-950/80 px-2 py-0.5 rounded border border-pink-800/60">Mobile & Relational DB</span>
-                                </div>
-                                <h3 class="text-xl font-bold text-white mb-2">Travel Diary Mobile App</h3>
-                                <p class="text-slate-300 text-xs leading-relaxed mb-3">Offline-first trip logging application with sqflite local persistence, Figma wireframes, and asynchronous Firebase cloud sync.</p>
-                            </div>
-                            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
-                                <span class="text-[10px] font-mono text-slate-400">Flutter • sqflite • Firebase</span>
-                                <span class="text-[11px] font-mono text-pink-400">Hover/Tap <i class="fa-solid fa-rotate"></i></span>
-                            </div>
-                        </div>
-                        <div class="card-back glass-panel border border-pink-500/40 p-6 flex flex-col justify-between bg-slate-900 shadow-2xl">
-                            <div>
-                                <h4 class="text-base font-bold text-pink-400 mb-2">Database Strategy</h4>
-                                <p class="text-slate-300 text-xs leading-relaxed mb-3">Engineered local relational schemas for offline entry creation, photo caching, and automated conflict resolution upon reconnecting.</p>
-                            </div>
-                            <a href="https://github.com/Teninator/Travel-dairy-app.git" target="_blank" class="w-full py-2 rounded-lg bg-pink-600 hover:bg-pink-500 text-white font-bold text-center text-xs">View Repository <i class="fa-brands fa-github"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 7. Rubble Generator & VFX -->
-                <div class="project-card card-perspective" data-category="tech-art" data-tags="unity c# glsl hlsl procedural shaders technical art editor tooling">
-                    <div class="card-inner">
-                        <div class="card-front glass-panel border border-slate-800 p-6 flex flex-col justify-between hover:border-amber-500/50 transition-all shadow-xl">
-                            <div>
-                                <div class="flex justify-between items-start mb-3">
-                                    <span class="p-2.5 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 text-lg"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
-                                    <span class="text-[10px] font-mono text-amber-400 bg-amber-950/80 px-2 py-0.5 rounded border border-amber-800/60">Unity Tech Art</span>
-                                </div>
-                                <h3 class="text-xl font-bold text-white mb-2">Rubble Generator & VFX</h3>
-                                <p class="text-slate-300 text-xs leading-relaxed mb-3">Unity-based procedural debris scattering tool and custom GLSL/HLSL shader library for environmental game development.</p>
-                            </div>
-                            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
-                                <span class="text-[10px] font-mono text-slate-400">Unity C# • Shaders</span>
-                                <span class="text-[11px] font-mono text-amber-400">Hover/Tap <i class="fa-solid fa-rotate"></i></span>
-                            </div>
-                        </div>
-                        <div class="card-back glass-panel border border-amber-500/40 p-6 flex flex-col justify-between bg-slate-900 shadow-2xl">
-                            <div>
-                                <h4 class="text-base font-bold text-amber-400 mb-2">Procedural Tools</h4>
-                                <p class="text-slate-300 text-xs leading-relaxed mb-3">Custom editor scripts for random seed variations, physics scattering, vertex deformation, water shaders, and post-processing passes.</p>
-                            </div>
-                            <a href="https://github.com/Teninator/Rubble-generator" target="_blank" class="w-full py-2 rounded-lg bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold text-center text-xs">Tool Repo <i class="fa-brands fa-github"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 8. RoboMaster Ridgebots -->
-                <div class="project-card card-perspective" data-category="embedded-robotics" data-tags="c++ ros robotics hardware motor control low-latency sentry sentry-ai">
+                <!-- 4. 3D Fish Boids Flocking Simulation -->
+                <div class="project-card card-perspective" data-category="cpp-graphics" data-tags="c++ opengl glsl reynolds boids flocking spatial partitioning vaporwave tessellation predator">
                     <div class="card-inner">
                         <div class="card-front glass-panel border border-slate-800 p-6 flex flex-col justify-between hover:border-cyan-500/50 transition-all shadow-xl">
                             <div>
                                 <div class="flex justify-between items-start mb-3">
-                                    <span class="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-lg"><i class="fa-solid fa-robot"></i></span>
-                                    <span class="text-[10px] font-mono text-cyan-400 bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-800/60">Competitive Robotics</span>
+                                    <span class="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-lg"><i class="fa-solid fa-fish"></i></span>
+                                    <span class="text-[10px] font-mono text-cyan-400 bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-800/60">3D Simulation</span>
                                 </div>
-                                <h3 class="text-xl font-bold text-white mb-2">RoboMaster "Ridgebots"</h3>
-                                <p class="text-slate-300 text-xs leading-relaxed mb-3">Programmed low-level chassis motion, motor PID loops, and computer vision targeting logic for international university competitions.</p>
+                                <h3 class="text-xl font-bold text-white mb-2">3D Fish Boids Engine</h3>
+                                <p class="text-slate-300 text-xs leading-relaxed mb-3">Craig Reynolds' flocking simulation (separation, alignment, cohesion) in C++ with predator pursuit and obstacle avoidance.</p>
                             </div>
                             <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
-                                <span class="text-[10px] font-mono text-slate-400">C++ • ROS • Vision</span>
+                                <span class="text-[10px] font-mono text-slate-400">C++ • OpenGL • GLSL</span>
                                 <span class="text-[11px] font-mono text-cyan-400">Hover/Tap <i class="fa-solid fa-rotate"></i></span>
                             </div>
                         </div>
                         <div class="card-back glass-panel border border-cyan-500/40 p-6 flex flex-col justify-between bg-slate-900 shadow-2xl">
                             <div>
-                                <h4 class="text-base font-bold text-cyan-400 mb-2">Control & Computer Vision</h4>
-                                <p class="text-slate-300 text-xs leading-relaxed mb-3">Real-time motor drivers, chassis motion mapping, autonomous sentry targeting algorithms, and cross-functional team coordination.</p>
+                                <h4 class="text-base font-bold text-cyan-400 mb-2">Optimization & Math</h4>
+                                <ul class="text-slate-300 text-xs space-y-2 mb-3">
+                                    <li>• Optimized distance checking from $O(n^2)$ to $O(n \log n)$ via 3D spatial grid partitioning.</li>
+                                    <li>• Tessellation shader pipeline supporting 10,000+ dynamic agent meshes at 60+ FPS.</li>
+                                </ul>
                             </div>
-                            <a href="https://www.robomasterna.com/" target="_blank" class="w-full py-2 rounded-lg bg-gradient-to-r from-cyan-400 to-blue-600 text-slate-950 font-bold text-center text-xs">Competition Info <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                            <a href="#interactive-demo" class="w-full py-2 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-center text-xs">Run Live Demo <i class="fa-solid fa-play"></i></a>
                         </div>
                     </div>
                 </div>
 
-                <!-- 9. Shader Experiments -->
-                <div class="project-card card-perspective" data-category="tech-art" data-tags="glsl hlsl shaders visual effects graphics optimization">
+                <!-- 5. FlipEngine 2.5D Custom Engine -->
+                <div class="project-card card-perspective" data-category="cpp-graphics" data-tags="c++ opengl glsl visual studio sprite batching cameras camera pipeline custom engine">
                     <div class="card-inner">
-                        <div class="card-front glass-panel border border-slate-800 p-6 flex flex-col justify-between hover:border-purple-500/50 transition-all shadow-xl">
+                        <div class="card-front glass-panel border border-slate-800 p-6 flex flex-col justify-between hover:border-amber-500/50 transition-all shadow-xl">
                             <div>
                                 <div class="flex justify-between items-start mb-3">
-                                    <span class="p-2.5 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 text-lg"><i class="fa-solid fa-palette"></i></span>
-                                    <span class="text-[10px] font-mono text-purple-400 bg-purple-950/80 px-2 py-0.5 rounded border border-purple-800/60">Graphics / Shaders</span>
+                                    <span class="p-2.5 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 text-lg"><i class="fa-solid fa-gamepad"></i></span>
+                                    <span class="text-[10px] font-mono text-amber-400 bg-amber-950/80 px-2 py-0.5 rounded border border-amber-800/60">Game Engine</span>
                                 </div>
-                                <h3 class="text-xl font-bold text-white mb-2">Shader Experiments</h3>
-                                <p class="text-slate-300 text-xs leading-relaxed mb-3">Collection of custom real-time GLSL fragment/vertex shaders for visual effects, raymarching, lighting models, and material optimization.</p>
+                                <h3 class="text-xl font-bold text-white mb-2">FlipEngine (2.5D)</h3>
+                                <p class="text-slate-300 text-xs leading-relaxed mb-3">2.5D custom game engine built from scratch in C++ handling manual memory, sprite batching, and orthographic pipelines.</p>
                             </div>
                             <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
-                                <span class="text-[10px] font-mono text-slate-400">GLSL • HLSL • VFX</span>
-                                <span class="text-[11px] font-mono text-purple-400">Hover/Tap <i class="fa-solid fa-rotate"></i></span>
+                                <span class="text-[10px] font-mono text-slate-400">C++ • OpenGL • GLSL</span>
+                                <span class="text-[11px] font-mono text-amber-400">Hover/Tap <i class="fa-solid fa-rotate"></i></span>
                             </div>
                         </div>
-                        <div class="card-back glass-panel border border-purple-500/40 p-6 flex flex-col justify-between bg-slate-900 shadow-2xl">
+                        <div class="card-back glass-panel border border-amber-500/40 p-6 flex flex-col justify-between bg-slate-900 shadow-2xl">
                             <div>
-                                <h4 class="text-base font-bold text-purple-400 mb-2">Shader Laboratory</h4>
-                                <p class="text-slate-300 text-xs leading-relaxed mb-3">Simulations, post-processing filters, noise functions, and GPU pipeline tests.</p>
+                                <h4 class="text-base font-bold text-amber-400 mb-2">Shader Passes & Rendering</h4>
+                                <ul class="text-slate-300 text-xs space-y-2 mb-3">
+                                    <li>• Integrated GLSL shader passes for dynamic lighting and pseudo-depth sorting.</li>
+                                    <li>• Custom camera pipelines blending 2D sprite planes seamlessly within 3D environments.</li>
+                                </ul>
                             </div>
-                            <a href="https://github.com/Teninator/Shader-experiments" target="_blank" class="w-full py-2 rounded-lg bg-purple-600 hover:bg-purple-500 text-white font-bold text-center text-xs">Shader Repository <i class="fa-brands fa-github"></i></a>
+                            <a href="https://github.com/teninator" target="_blank" class="w-full py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-center text-xs">Engine Code <i class="fa-brands fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Rubble Generator & Shader VFX -->
+                <div class="project-card card-perspective" data-category="tech-art" data-tags="unity c# glsl hlsl shaders procedural generation vfx tech art tools">
+                    <div class="card-inner">
+                        <div class="card-front glass-panel border border-slate-800 p-6 flex flex-col justify-between hover:border-cyan-400/50 transition-all shadow-xl">
+                            <div>
+                                <div class="flex justify-between items-start mb-3">
+                                    <span class="p-2.5 rounded-xl bg-cyan-400/10 text-cyan-400 border border-cyan-400/20 text-lg"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+                                    <span class="text-[10px] font-mono text-cyan-400 bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-800/60">Tech Art</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-white mb-2">Rubble Generator & VFX</h3>
+                                <p class="text-slate-300 text-xs leading-relaxed mb-3">Unity-based procedural tool for scattering debris using custom scripts along with custom GLSL/HLSL shader packs.</p>
+                            </div>
+                            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
+                                <span class="text-[10px] font-mono text-slate-400">Unity C# • GLSL • HLSL</span>
+                                <span class="text-[11px] font-mono text-cyan-400">Hover/Tap <i class="fa-solid fa-rotate"></i></span>
+                            </div>
+                        </div>
+                        <div class="card-back glass-panel border border-cyan-400/40 p-6 flex flex-col justify-between bg-slate-900 shadow-2xl">
+                            <div>
+                                <h4 class="text-base font-bold text-cyan-400 mb-2">Procedural Pipeline</h4>
+                                <ul class="text-slate-300 text-xs space-y-2 mb-3">
+                                    <li>• Created custom shaders for visual effects, vertex displacement, and material optimization.</li>
+                                    <li>• Developed toolsets recognized in the Ubisoft NEXT 2024 Technical Art competition.</li>
+                                </ul>
+                            </div>
+                            <a href="https://github.com/Teninator/Rubble-generator" target="_blank" class="w-full py-2 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-center text-xs">View Tool Repo <i class="fa-brands fa-github"></i></a>
                         </div>
                     </div>
                 </div>
@@ -680,197 +615,137 @@
     </section>
 
     <!-- Work Experience Section -->
-    <section id="experience" class="py-24 relative z-10 border-t border-slate-800/50 bg-slate-900/20">
+    <section id="experience" class="py-20 relative z-10 border-t border-slate-800/50 bg-slate-900/30">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-12">
+            <div class="text-center max-w-3xl mx-auto mb-16">
                 <div class="inline-flex items-center gap-2 text-cyan-400 font-mono text-xs uppercase tracking-widest mb-2">
                     <i class="fa-solid fa-briefcase"></i> Track Record
                 </div>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Work Experience</h2>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">Work Experience</h2>
             </div>
 
-            <div class="max-w-4xl mx-auto space-y-6">
+            <div class="max-w-4xl mx-auto space-y-8">
 
-                <div class="glass-panel p-6 rounded-2xl border border-slate-800">
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                <!-- Role 1: Premium Retail Services -->
+                <div class="glass-panel p-6 sm:p-8 rounded-2xl border border-slate-800 hover:border-cyan-500/40 transition-colors">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
                         <div>
-                            <h3 class="text-lg font-bold text-white">Programmer — RoboMaster "Ridgebots"</h3>
-                            <div class="text-xs font-mono text-cyan-400">Ontario Tech University</div>
+                            <h3 class="text-xl font-bold text-white">Chromebook Sales Specialist</h3>
+                            <span class="text-cyan-400 text-sm font-medium">Premium Retail Services (PRS) • Toronto, ON</span>
                         </div>
-                        <span class="px-3 py-1 rounded-full bg-slate-800 text-slate-300 font-mono text-xs border border-slate-700">2024 – 2025</span>
+                        <span class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-cyan-400 text-xs font-mono w-max">2026 – Present</span>
                     </div>
-                    <ul class="text-xs text-slate-300 space-y-2 leading-relaxed">
-                        <li>• Programmed low-level chassis motion and motor control systems for precise real-time robot maneuvering under high dynamic acceleration.</li>
-                        <li>• Assisted in developing computer vision targeting models and autonomous sentry logic alongside cross-functional engineering subteams.</li>
+                    <ul class="space-y-2 text-xs sm:text-sm text-slate-300">
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-angle-right text-cyan-400 mt-1"></i>
+                            <span>Drive Google and ChromeOS device sales by delivering interactive product demonstrations and hands-on client training for retail staff on features, promos, and core messaging.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-angle-right text-cyan-400 mt-1"></i>
+                            <span>Elevate in-store customer experience through active needs assessment, clear technical storytelling, and maintaining visual merchandising standards.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-angle-right text-cyan-400 mt-1"></i>
+                            <span>Identify localized sales opportunities, deliver creative floor problem-solving, and communicate customer trends directly to leadership.</span>
+                        </li>
                     </ul>
                 </div>
 
-                <div class="glass-panel p-6 rounded-2xl border border-slate-800">
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                <!-- Role 2: Love Happy Live Well -->
+                <div class="glass-panel p-6 sm:p-8 rounded-2xl border border-slate-800 hover:border-blue-500/40 transition-colors">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
                         <div>
-                            <h3 class="text-lg font-bold text-white">Digital Consultant & Web Developer</h3>
-                            <div class="text-xs font-mono text-purple-400">Love Happy Live Well</div>
+                            <h3 class="text-xl font-bold text-white">Digital Consultant & Web Developer</h3>
+                            <span class="text-blue-400 text-sm font-medium">Love Happy Live Well • Toronto, ON</span>
                         </div>
-                        <span class="px-3 py-1 rounded-full bg-slate-800 text-slate-300 font-mono text-xs border border-slate-700">2026</span>
+                        <span class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-blue-400 text-xs font-mono w-max">2026</span>
                     </div>
-                    <p class="text-xs text-slate-300 leading-relaxed">
-                        • Deployed an optimized production web platform achieving a <strong class="text-white">98/100 Lighthouse performance score</strong> and <strong class="text-emerald-400">45% faster page load times</strong> through image compression and static caching.
-                    </p>
+                    <ul class="space-y-2 text-xs sm:text-sm text-slate-300">
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-angle-right text-blue-400 mt-1"></i>
+                            <span>Built and launched a production web platform, optimizing asset loading to hit a <strong class="text-white font-mono">98/100</strong> Google Lighthouse performance score.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-angle-right text-blue-400 mt-1"></i>
+                            <span>Cut load times by 45% by implementing WebP image compression, code splitting, and browser caching rules.</span>
+                        </li>
+                    </ul>
                 </div>
 
-                <div class="glass-panel p-6 rounded-2xl border border-slate-800">
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                <!-- Role 3: Ontario Tech RoboMaster -->
+                <div class="glass-panel p-6 sm:p-8 rounded-2xl border border-slate-800 hover:border-emerald-500/40 transition-colors">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
                         <div>
-                            <h3 class="text-lg font-bold text-white">Business Strategy & Market Analyst</h3>
-                            <div class="text-xs font-mono text-emerald-400">Art Circle of Alberta / Vienna Waits</div>
+                            <h3 class="text-xl font-bold text-white">Software Engineer / Programmer</h3>
+                            <span class="text-emerald-400 text-sm font-medium">Ontario Tech RoboMaster "Ridgebots" • Oshawa, ON</span>
                         </div>
-                        <span class="px-3 py-1 rounded-full bg-slate-800 text-slate-300 font-mono text-xs border border-slate-700">2026</span>
+                        <span class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-emerald-400 text-xs font-mono w-max">2024 – 2025</span>
                     </div>
-                    <p class="text-xs text-slate-300 leading-relaxed">
-                        • Analyzed user interaction funnels across <strong class="text-white">5,000+ data logs</strong>, identifying key drop-off bottlenecks and boosting overall user conversion by <strong class="text-cyan-400">18%</strong>.
-                    </p>
+                    <ul class="space-y-2 text-xs sm:text-sm text-slate-300">
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-angle-right text-emerald-400 mt-1"></i>
+                            <span>Wrote low-level C++ code for microcontroller chassis movement and real-time motor control systems.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-angle-right text-emerald-400 mt-1"></i>
+                            <span>Collaborated with cross-functional subteams to build and test automated sentry targeting logic and computer vision models.</span>
+                        </li>
+                    </ul>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="glass-panel p-5 rounded-2xl border border-slate-800">
-                        <div class="text-sm font-bold text-white">Subway Facility Maintenance</div>
-                        <div class="text-xs font-mono text-slate-400">Toronto Transit Commission (TTC) • 2026</div>
-                        <p class="text-xs text-slate-300 mt-2">Maintained transit facility standards across high-volume subway hubs under strict safety protocols.</p>
+                <!-- Role 4: Art Circle of Alberta / Vienna Waits -->
+                <div class="glass-panel p-6 sm:p-8 rounded-2xl border border-slate-800 hover:border-purple-500/40 transition-colors">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Business Strategy & Market Analyst</h3>
+                            <span class="text-purple-400 text-sm font-medium">Art Circle of Alberta / Vienna Waits • Remote</span>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-purple-400 text-xs font-mono w-max">2026</span>
                     </div>
-                    <div class="glass-panel p-5 rounded-2xl border border-slate-800">
-                        <div class="text-sm font-bold text-white">Customer Care Associate</div>
-                        <div class="text-xs font-mono text-slate-400">Pedalheads • 2023 – 2024</div>
-                        <p class="text-xs text-slate-300 mt-2">Cultivated client relationships and identified key revenue opportunities through targeted engagement.</p>
-                    </div>
+                    <ul class="space-y-2 text-xs sm:text-sm text-slate-300">
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-angle-right text-purple-400 mt-1"></i>
+                            <span>Analyzed over 5,000 user interaction logs using data cleaning scripts to identify drop-off bottlenecks, boosting conversions by 18%.</span>
+                        </li>
+                    </ul>
                 </div>
 
             </div>
         </div>
     </section>
 
-    <!-- Embedded Real-Time 3D Fish Boids Canvas -->
-    <section id="interactive-demo" class="py-20 relative z-10 bg-slate-900/60 border-y border-slate-800">
+    <!-- Interactive Demo Section (3D Fish Boids Engine) -->
+    <section id="interactive-demo" class="py-24 relative z-10 border-t border-slate-800/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-                
-                <div class="lg:col-span-5 space-y-6">
-                    <div class="inline-flex items-center gap-2 text-cyan-400 font-mono text-xs uppercase tracking-widest">
-                        <i class="fa-solid fa-fish"></i> 3D Flocking Engine
-                    </div>
-                    <h2 class="text-3xl font-bold text-white">Interactive 3D Fish Boids Simulation</h2>
-                    <p class="text-slate-300 text-xs leading-relaxed">
-                        Simulating Craig Reynolds' Boids algorithms in real-time WebGL. Features pastel vaporwave fish color variations, obstacle cylinder avoidance, bubble particle effects, and an autonomous apex predator shark.
-                    </p>
-
-                    <div class="glass-panel p-5 rounded-xl border border-slate-800 space-y-4">
-                        <h4 class="text-xs font-mono text-slate-400 uppercase tracking-wider">Simulation Parameters</h4>
-                        
-                        <div>
-                            <div class="flex justify-between text-xs font-mono text-slate-300 mb-1">
-                                <span>Fish Agent Population</span>
-                                <span id="boid-count-val">120</span>
-                            </div>
-                            <input type="range" id="boid-count-slider" min="30" max="300" step="10" value="120" class="w-full accent-cyan-400 bg-slate-800 rounded cursor-pointer">
-                        </div>
-
-                        <div>
-                            <div class="flex justify-between text-xs font-mono text-slate-300 mb-1">
-                                <span>Predator Shark Chase Speed</span>
-                                <span id="shark-speed-val">1.0x</span>
-                            </div>
-                            <input type="range" id="shark-speed-slider" min="0.5" max="2.5" step="0.1" value="1.0" class="w-full accent-purple-400 bg-slate-800 rounded cursor-pointer">
-                        </div>
-
-                        <div class="flex gap-3">
-                            <button id="toggle-obstacles-btn" class="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-400 text-xs font-mono border border-slate-700 w-full transition-colors">
-                                Toggle Obstacles
-                            </button>
-                            <button id="respawn-boids-btn" class="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-purple-400 text-xs font-mono border border-slate-700 w-full transition-colors">
-                                Reset School
-                            </button>
-                        </div>
-                    </div>
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <div class="inline-flex items-center gap-2 text-cyan-400 font-mono text-xs uppercase tracking-widest mb-2">
+                    <i class="fa-solid fa-vr-cardboard"></i> Real-Time Graphics Engine
                 </div>
-
-                <div class="lg:col-span-7">
-                    <div class="glass-panel p-2 rounded-2xl border border-slate-800 shadow-2xl relative">
-                        <canvas id="boidsCanvas" class="w-full h-80 sm:h-96 rounded-xl block bg-[#030611]"></canvas>
-                        <div class="absolute bottom-4 right-4 px-3 py-1 rounded bg-black/80 backdrop-blur text-xs font-mono text-cyan-400 border border-slate-700">
-                            3D WebGL Vector Engine
-                        </div>
-                    </div>
-                </div>
-
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">3D Fish Boids Simulation</h2>
+                <p class="text-slate-300 text-sm mt-3">
+                    A WebGL & Three.js port of Teni's C++ Boids Engine with separation, alignment, cohesion, predator pursuit, and obstacle avoidance.
+                </p>
             </div>
-        </div>
-    </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-24 relative z-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="max-w-4xl mx-auto">
-                <div class="text-center mb-12">
-                    <div class="inline-flex items-center gap-2 text-cyan-400 font-mono text-xs uppercase tracking-widest mb-2">
-                        <i class="fa-solid fa-envelope"></i> Reach Out
+            <div class="glass-panel p-6 rounded-3xl border border-slate-800 shadow-2xl space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-mono">
+                    <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800">
+                        <label class="block text-slate-400 mb-2">Boid Population: <span id="boid-count-val" class="text-cyan-400 font-bold">120</span></label>
+                        <input type="range" id="boid-count" min="20" max="250" value="120" class="w-full accent-cyan-400">
                     </div>
-                    <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">Let's Connect</h2>
-                    <p class="text-slate-400 mt-3 text-sm">Open to Software Engineering roles, Graphics Development, and Technical Art opportunities.</p>
+                    <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800">
+                        <label class="block text-slate-400 mb-2">Shark Chase Speed: <span id="shark-speed-val" class="text-red-400 font-bold">16.0</span></label>
+                        <input type="range" id="shark-speed" min="5" max="30" value="16" class="w-full accent-red-400">
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between">
+                        <span class="text-slate-400">Coral Obstacles:</span>
+                        <button id="toggle-obstacles" class="px-4 py-2 rounded-lg bg-emerald-500 text-slate-950 font-bold">Active</button>
+                    </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
-                    <div class="md:col-span-5 space-y-4">
-                        <div class="glass-panel p-6 rounded-2xl border border-slate-800 space-y-5 text-xs">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center text-base">
-                                    <i class="fa-solid fa-envelope"></i>
-                                </div>
-                                <div>
-                                    <div class="font-mono text-slate-400 uppercase text-[10px]">Email Address</div>
-                                    <a href="mailto:oluwateniolaadegbite@gmail.com" class="text-white hover:text-cyan-400 font-semibold transition-colors break-all">oluwateniolaadegbite@gmail.com</a>
-                                </div>
-                            </div>
-
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center text-base">
-                                    <i class="fa-solid fa-phone"></i>
-                                </div>
-                                <div>
-                                    <div class="font-mono text-slate-400 uppercase text-[10px]">Phone</div>
-                                    <a href="tel:6473957418" class="text-white hover:text-purple-400 font-semibold transition-colors">647-395-7418</a>
-                                </div>
-                            </div>
-
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-base">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                </div>
-                                <div>
-                                    <div class="font-mono text-slate-400 uppercase text-[10px]">Location</div>
-                                    <div class="text-white font-semibold">Toronto, ON, Canada</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="md:col-span-7">
-                        <form id="contact-form" class="glass-panel p-6 rounded-2xl border border-slate-800 space-y-4 text-xs">
-                            <div>
-                                <label for="name" class="block font-mono text-slate-300 uppercase mb-1.5">Name</label>
-                                <input type="text" id="name" required placeholder="Your Full Name" class="w-full px-4 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-white focus:outline-none focus:border-cyan-400 transition-colors">
-                            </div>
-                            <div>
-                                <label for="email" class="block font-mono text-slate-300 uppercase mb-1.5">Email</label>
-                                <input type="email" id="email" required placeholder="name@example.com" class="w-full px-4 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-white focus:outline-none focus:border-cyan-400 transition-colors">
-                            </div>
-                            <div>
-                                <label for="message" class="block font-mono text-slate-300 uppercase mb-1.5">Message</label>
-                                <textarea id="message" rows="4" required placeholder="Write your message here..." class="w-full px-4 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-white focus:outline-none focus:border-cyan-400 transition-colors"></textarea>
-                            </div>
-                            <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-600 text-slate-950 font-bold hover:shadow-lg hover:shadow-cyan-500/20 transition-all text-xs">
-                                Send Message <i class="fa-solid fa-paper-plane ml-2"></i>
-                            </button>
-                            <div id="form-response" class="hidden p-3 rounded-lg text-center font-mono"></div>
-                        </form>
+                <div class="relative w-full h-[450px] rounded-2xl overflow-hidden border border-slate-800 bg-slate-950" id="boid-canvas-container">
+                    <div class="absolute top-4 left-4 z-10 glass-panel px-3 py-1.5 rounded-lg text-[11px] font-mono text-cyan-400 border border-cyan-500/30">
+                        <i class="fa-solid fa-circle text-[8px] animate-pulse"></i> WebGL Active • Real-Time 3D Engine
                     </div>
                 </div>
             </div>
@@ -878,581 +753,471 @@
     </section>
 
     <!-- Footer -->
-    <footer class="py-8 border-t border-slate-800/80 bg-slate-950 text-center text-slate-400 text-xs font-mono">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <div>© 2026 Oluwateniola "Teni" Adegbite.</div>
-            <div class="flex items-center gap-6">
-                <a href="https://github.com/teninator" target="_blank" class="hover:text-cyan-400 transition-colors"><i class="fa-brands fa-github text-sm"></i></a>
-                <a href="https://linkedin.com/in/teni-adegbite" target="_blank" class="hover:text-cyan-400 transition-colors"><i class="fa-brands fa-linkedin text-sm"></i></a>
-                <a href="mailto:oluwateniolaadegbite@gmail.com" class="hover:text-cyan-400 transition-colors"><i class="fa-solid fa-envelope text-sm"></i></a>
+    <footer class="py-12 border-t border-slate-800/80 bg-slate-950 relative z-10 text-xs text-slate-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+                <p>© 2026 Oluwateniola "Teni" Adegbite. All rights reserved.</p>
+            </div>
+            <div class="flex items-center gap-6 text-sm">
+                <a href="https://github.com/teninator" target="_blank" class="hover:text-cyan-400 transition-colors"><i class="fa-brands fa-github"></i></a>
+                <a href="https://linkedin.com/in/teni-adegbite" target="_blank" class="hover:text-cyan-400 transition-colors"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="mailto:oluwateniolaadegbite@gmail.com" class="hover:text-cyan-400 transition-colors"><i class="fa-solid fa-envelope"></i></a>
             </div>
         </div>
     </footer>
 
-    <!-- RESUME MODAL WINDOW -->
-    <div id="resume-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md hidden">
-        <div class="glass-panel w-full max-w-4xl max-h-[90vh] rounded-2xl border border-slate-700 shadow-2xl flex flex-col overflow-hidden">
-            
-            <div class="p-4 bg-slate-900 border-b border-slate-800 flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <span class="w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 flex items-center justify-center">
-                        <i class="fa-solid fa-file-pdf"></i>
-                    </span>
-                    <div>
-                        <h3 class="text-sm font-bold text-white">Teni_Adegbite_Resume.pdf</h3>
-                        <div class="text-[10px] font-mono text-slate-400">Computer Science Undergraduate • Ontario Tech</div>
-                    </div>
-                </div>
-                <div class="flex items-center gap-3">
-                    <button onclick="downloadResumePDF()" class="px-3 py-1.5 rounded-lg bg-cyan-400 text-slate-950 font-bold hover:bg-cyan-300 transition-colors text-xs flex items-center gap-1.5">
-                        <i class="fa-solid fa-download"></i> Download PDF
-                    </button>
-                    <button id="close-resume-modal" class="text-slate-400 hover:text-white p-1 text-lg">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-            </div>
-
-            <div class="bg-slate-950 px-4 pt-3 border-b border-slate-800 flex gap-2 font-mono text-xs overflow-x-auto">
-                <button data-tab="res-summary" class="res-tab active px-3 py-1.5 rounded-t-lg bg-slate-800 text-cyan-400 font-semibold border-t border-x border-slate-700">Overview</button>
-                <button data-tab="res-experience" class="res-tab px-3 py-1.5 rounded-t-lg text-slate-400 hover:text-white">Experience</button>
-                <button data-tab="res-projects" class="res-tab px-3 py-1.5 rounded-t-lg text-slate-400 hover:text-white">Projects</button>
-                <button data-tab="res-skills" class="res-tab px-3 py-1.5 rounded-t-lg text-slate-400 hover:text-white">Skills Matrix</button>
-            </div>
-
-            <div class="p-6 overflow-y-auto space-y-6 text-xs text-slate-300 font-sans" id="resume-modal-body">
-                
-                <div id="res-summary" class="res-tab-content space-y-4">
-                    <div class="border-b border-slate-800 pb-3">
-                        <h2 class="text-lg font-bold text-white">Oluwateniola "Teni" Adegbite</h2>
-                        <p class="text-cyan-400 font-mono">Toronto, ON | oluwateniolaadegbite@gmail.com | 647-395-7418</p>
-                    </div>
-
-                    <div>
-                        <h4 class="font-mono text-cyan-400 uppercase font-bold mb-2">Education</h4>
-                        <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
-                            <div class="flex justify-between font-bold text-white">
-                                <span>Ontario Tech University</span>
-                                <span>Expected June 2027</span>
-                            </div>
-                            <div class="text-slate-300 mt-1">Bachelor of Computer Science; Digital Media Specialization (Minor in Sustainability Studies)</div>
-                            <div class="text-amber-400 text-[11px] mt-2 italic">
-                                <strong>Thesis:</strong> Sustainable Game Development Workflows: Investigating Asset Management, Rework, and Version Control in Indie Game Development
-                            </div>
-                            <div class="text-slate-400 text-[11px] mt-2">
-                                <strong>Coursework:</strong> Advanced Data Structures, Software Architecture, SQA & Testing, AI & Machine Learning, Computer Vision, HCI.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="res-experience" class="res-tab-content space-y-4 hidden">
-                    <h4 class="font-mono text-cyan-400 uppercase font-bold">Work Experience</h4>
-                    <div class="space-y-3">
-                        <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
-                            <div class="flex justify-between font-bold text-white">
-                                <span>Ontario Tech University Robomaster "Ridgebots"</span>
-                                <span>2024 - 2025</span>
-                            </div>
-                            <div class="text-cyan-400 font-mono text-[11px]">Programmer</div>
-                            <ul class="list-disc list-inside mt-2 space-y-1 text-slate-300">
-                                <li>Programmed low-level chassis motion and motor control systems for precise real-time robot maneuvering.</li>
-                                <li>Assisted in developing computer vision targeting models and autonomous sentry logic alongside cross-functional subteams.</li>
-                            </ul>
-                        </div>
-
-                        <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
-                            <div class="flex justify-between font-bold text-white">
-                                <span>Love Happy Live Well</span>
-                                <span>2026</span>
-                            </div>
-                            <div class="text-cyan-400 font-mono text-[11px]">Digital Consultant & Web Developer</div>
-                            <p class="mt-1">Deployed an optimized production web platform achieving a 98/100 Lighthouse performance score and 45% faster load times.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="res-projects" class="res-tab-content space-y-3 hidden">
-                    <h4 class="font-mono text-cyan-400 uppercase font-bold">Featured Projects</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
-                            <div class="font-bold text-white">FlipEngine (2.5D Custom Game Engine)</div>
-                            <div class="text-slate-400 text-[11px] mt-1">C++, OpenGL, GLSL, Visual Studio</div>
-                        </div>
-                        <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
-                            <div class="font-bold text-white">Fish Boids Simulation (3D Flocking)</div>
-                            <div class="text-slate-400 text-[11px] mt-1">C++, OpenGL, Spatial Partitioning (O(n log n))</div>
-                        </div>
-                        <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
-                            <div class="font-bold text-white">GlycoLens AI Bolus Estimator</div>
-                            <div class="text-slate-400 text-[11px] mt-1">Python, FastAPI, YOLOv8 (88% Accuracy)</div>
-                        </div>
-                        <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
-                            <div class="font-bold text-white">Rootstrike Thermal Node</div>
-                            <div class="text-slate-400 text-[11px] mt-1">Embedded C++, STM32 Nucleo, UART</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="res-skills" class="res-tab-content space-y-3 hidden">
-                    <h4 class="font-mono text-cyan-400 uppercase font-bold">Technical Skills Matrix</h4>
-                    <div class="space-y-2 text-slate-300 font-mono">
-                        <div><strong class="text-white">Languages:</strong> C++, Python, Dart, Java, C#, JavaScript (ES6+), PHP, SQL, HTML5, CSS3, C</div>
-                        <div><strong class="text-white">Frameworks & APIs:</strong> FastAPI, Flutter (Riverpod), React, Next.js, Node.js, REST APIs</div>
-                        <div><strong class="text-white">Databases & AI:</strong> YOLOv8, Supabase, Firebase, PostgreSQL, SQLite, sqflite</div>
-                        <div><strong class="text-white">Tools & Practices:</strong> Visual Studio, Git, Docker, CI/CD, Linux, Agile (Jira), Unit Testing, Shaders (GLSL), Figma</div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <!-- JavaScript Application & 3D Boids Engine -->
+    <!-- Three.js Zoomed-Out Boid & Collision Simulation JavaScript -->
     <script>
-        // --- Mobile Menu Toggle ---
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const menuIcon = document.getElementById('menu-icon');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            menuIcon.className = mobileMenu.classList.contains('hidden') ? "fa-solid fa-bars text-2xl" : "fa-solid fa-xmark text-2xl";
-        });
-
-        // --- CLI Terminal Widget ---
+        // --- 1. Terminal Logic ---
         const terminalInput = document.getElementById('terminal-input');
         const terminalBody = document.getElementById('terminal-body');
 
-        terminalInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                const cmd = terminalInput.value.trim().toLowerCase();
-                terminalInput.value = '';
-
-                const echoDiv = document.createElement('div');
-                echoDiv.innerHTML = `<span class="text-emerald-400">teni@toronto</span>:<span class="text-blue-400">~</span>$ ${cmd}`;
-                terminalBody.appendChild(echoDiv);
-
-                const resDiv = document.createElement('div');
-                resDiv.className = "text-slate-300 mb-2";
-
-                switch(cmd) {
-                    case 'help':
-                        resDiv.innerHTML = `Available Commands:<br>- <span class="text-cyan-400">skills</span>: Output tech stack<br>- <span class="text-cyan-400">projects</span>: List featured C++ & AI projects<br>- <span class="text-cyan-400">resume</span>: Open resume modal<br>- <span class="text-cyan-400">education</span>: Print degree details<br>- <span class="text-cyan-400">clear</span>: Clear terminal window`;
-                        break;
-                    case 'skills':
-                        resDiv.innerHTML = `<span class="text-amber-400">Languages:</span> C++, Python, Dart, Java, C#, JS, GLSL, C<br><span class="text-purple-400">Frameworks:</span> FastAPI, Flutter, Riverpod, React, Next.js<br><span class="text-emerald-400">Tools:</span> OpenGL, STM32, Docker, YOLOv8, Supabase, Git`;
-                        break;
-                    case 'projects':
-                        resDiv.innerHTML = `1. FlipEngine (Custom 2.5D C++ Engine)<br>2. Fish Boids 3D Simulation (O(n log n) Spatial Grid)<br>3. GlycoLens AI Estimator (YOLOv8 + FastAPI)<br>4. Rootstrike Thermal Node (STM32 Embedded C++)`;
-                        break;
-                    case 'resume':
-                    case 'cat resume.json':
-                        openResumeModal();
-                        resDiv.innerHTML = `<span class="text-emerald-400">Opening interactive Resume Modal...</span>`;
-                        break;
-                    case 'education':
-                        resDiv.innerHTML = `Ontario Tech University (Expected June 2027)<br>B.S. Computer Science (Digital Media Specialization)`;
-                        break;
-                    case 'clear':
+        if (terminalInput) {
+            terminalInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    const cmd = terminalInput.value.trim().toLowerCase();
+                    terminalInput.value = '';
+                    
+                    let response = '';
+                    if (cmd === 'help') {
+                        response = `<span class="text-amber-300">Available commands:</span><br>
+                        • <strong class="text-white">skills</strong>: Print technical skills matrix.<br>
+                        • <strong class="text-white">projects</strong>: List featured engineering works.<br>
+                        • <strong class="text-white">resume</strong>: Trigger Q4 Resume PDF download.<br>
+                        • <strong class="text-white">clear</strong>: Clear terminal window.`;
+                    } else if (cmd === 'skills') {
+                        response = `<span class="text-cyan-400">Languages:</span> Python, C++, Java, C#, JS, TS, Dart, SQL, C, HTML/CSS<br>
+                        <span class="text-purple-400">Frameworks:</span> FastAPI, Flutter, React, Next.js, Node.js, Express<br>
+                        <span class="text-emerald-400">Databases:</span> PostgreSQL, SQLite, Supabase, Firebase, MongoDB`;
+                    } else if (cmd === 'projects') {
+                        response = `1. <strong class="text-white">Ontario Tech Plus</strong> (Flutter, Supabase)<br>
+                        2. <strong class="text-white">GlycoLens AI</strong> (Python, FastAPI, YOLOv8)<br>
+                        3. <strong class="text-white">Rootstrike Node</strong> (C++, STM32, Thermal Firmware)<br>
+                        4. <strong class="text-white">3D Fish Boids Engine</strong> (C++, OpenGL, GLSL)`;
+                    } else if (cmd === 'resume') {
+                        window.open('Teni Adegbite Resume Q4.pdf', '_blank');
+                        response = `<span class="text-emerald-400">Downloading Teni Adegbite Resume Q4.pdf...</span>`;
+                    } else if (cmd === 'clear') {
                         terminalBody.innerHTML = '';
                         return;
-                    default:
-                        resDiv.innerHTML = `<span class="text-red-400">Command not recognized.</span> Type <span class="text-amber-300 font-bold">'help'</span> for list.`;
+                    } else {
+                        response = `<span class="text-red-400">Command not recognized.</span> Type 'help' for options.`;
+                    }
+
+                    const outputDiv = document.createElement('div');
+                    outputDiv.innerHTML = `<div><span class="text-emerald-400">teni@toronto</span>:<span class="text-blue-400">~</span>$ ${cmd}</div><div class="text-slate-300 mt-1">${response}</div>`;
+                    terminalBody.appendChild(outputDiv);
+                    terminalBody.scrollTop = terminalBody.scrollHeight;
                 }
-
-                terminalBody.appendChild(resDiv);
-                terminalBody.scrollTop = terminalBody.scrollHeight;
-            }
-        });
-
-        // --- Resume Modal Logic & Tab Switching ---
-        const resumeModal = document.getElementById('resume-modal');
-        function openResumeModal() { resumeModal.classList.remove('hidden'); }
-
-        document.getElementById('open-resume-nav').addEventListener('click', openResumeModal);
-        document.getElementById('open-resume-hero').addEventListener('click', openResumeModal);
-        document.getElementById('open-resume-mobile').addEventListener('click', () => { mobileMenu.classList.add('hidden'); openResumeModal(); });
-        document.getElementById('close-resume-modal').addEventListener('click', () => { resumeModal.classList.add('hidden'); });
-
-        const resTabs = document.querySelectorAll('.res-tab');
-        const resTabContents = document.querySelectorAll('.res-tab-content');
-
-        resTabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const target = tab.getAttribute('data-tab');
-                resTabs.forEach(t => {
-                    t.classList.remove('active', 'bg-slate-800', 'text-cyan-400', 'font-semibold', 'border-t', 'border-x', 'border-slate-700');
-                    t.classList.add('text-slate-400');
-                });
-                tab.classList.add('active', 'bg-slate-800', 'text-cyan-400', 'font-semibold', 'border-t', 'border-x', 'border-slate-700');
-                tab.classList.remove('text-slate-400');
-
-                resTabContents.forEach(c => {
-                    c.id === target ? c.classList.remove('hidden') : c.classList.add('hidden');
-                });
             });
-        });
-
-        function downloadResumePDF() {
-            const content = `Oluwateniola "Teni" Adegbite - Resume Overview\nToronto, ON | oluwateniolaadegbite@gmail.com | 647-395-7418\nhttps://github.com/teninator\n\nEDUCATION:\nOntario Tech University - Bachelor of Computer Science (Digital Media)\n\nSKILLS:\nC++, Python, Dart, Java, C#, Flutter, OpenGL, GLSL, FastAPI, YOLOv8, STM32, Docker, Git.`;
-            const element = document.createElement('a');
-            element.href = URL.createObjectURL(new Blob([content], {type: 'text/plain'}));
-            element.download = "Teni_Adegbite_Resume.txt";
-            document.body.appendChild(element);
-            element.click();
-            document.body.removeChild(element);
         }
 
-        // --- Project Search & Tag Filtering ---
-        const projectSearch = document.getElementById('project-search');
+        // --- 2. Filter & Search Logic ---
+        const searchInput = document.getElementById('project-search');
         const filterBtns = document.querySelectorAll('.filter-btn');
         const projectCards = document.querySelectorAll('.project-card');
 
         function filterProjects() {
-            const query = projectSearch.value.toLowerCase().trim();
-            const categoryFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+            const query = searchInput ? searchInput.value.toLowerCase() : '';
+            const activeFilterBtn = document.querySelector('.filter-btn.active');
+            const activeFilter = activeFilterBtn ? activeFilterBtn.dataset.filter : 'all';
 
             projectCards.forEach(card => {
-                const category = card.getAttribute('data-category');
-                const tags = card.getAttribute('data-tags').toLowerCase();
-                const text = card.textContent.toLowerCase();
+                const category = card.dataset.category;
+                const tags = card.dataset.tags.toLowerCase();
+                const cardText = card.innerText.toLowerCase();
 
-                const matchesCategory = (categoryFilter === 'all' || category === categoryFilter);
-                const matchesQuery = (query === '' || tags.includes(query) || text.includes(query));
+                const matchesCategory = (activeFilter === 'all' || category === activeFilter);
+                const matchesQuery = (!query || tags.includes(query) || cardText.includes(query));
 
-                card.style.display = (matchesCategory && matchesQuery) ? 'block' : 'none';
+                if (matchesCategory && matchesQuery) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
             });
         }
 
-        projectSearch.addEventListener('input', filterProjects);
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => {
-                    b.classList.remove('active', 'bg-gradient-to-r', 'from-cyan-400', 'to-blue-600', 'text-slate-950');
-                    b.classList.add('glass-panel', 'text-slate-300');
+        if (filterBtns) {
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => {
+                        b.classList.remove('active', 'bg-gradient-to-r', 'from-cyan-400', 'to-blue-600', 'text-slate-950');
+                        b.classList.add('glass-panel', 'text-slate-300');
+                    });
+                    btn.classList.add('active', 'bg-gradient-to-r', 'from-cyan-400', 'to-blue-600', 'text-slate-950');
+                    btn.classList.remove('glass-panel', 'text-slate-300');
+                    filterProjects();
                 });
-                btn.classList.add('active', 'bg-gradient-to-r', 'from-cyan-400', 'to-blue-600', 'text-slate-950');
-                btn.classList.remove('glass-panel', 'text-slate-300');
-                filterProjects();
             });
-        });
+        }
 
-        projectCards.forEach(card => {
-            card.addEventListener('click', (e) => {
-                if (!e.target.closest('a')) {
-                    card.querySelector('.card-inner').classList.toggle('flipped');
+        if (searchInput) searchInput.addEventListener('input', filterProjects);
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        // --- 3. Three.js Zoomed-Out Boid & Collision Simulation ---
+        let boidContainer = document.getElementById('boid-canvas-container');
+        if (boidContainer) {
+            const scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x070a12, 0.005);
+
+            // Zoomed out camera perspective
+            const camera = new THREE.PerspectiveCamera(50, boidContainer.clientWidth / boidContainer.clientHeight, 0.1, 2000);
+            camera.position.set(0, 80, 140);
+            camera.lookAt(0, 0, 0);
+
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(boidContainer.clientWidth, boidContainer.clientHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            boidContainer.appendChild(renderer.domElement);
+
+            // Scroll to Zoom Listener
+            boidContainer.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                camera.position.z += e.deltaY * 0.15;
+                camera.position.z = Math.max(100, Math.min(500, camera.position.z));
+            }, { passive: false });
+
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0x404060, 2.5);
+            scene.add(ambientLight);
+            const dirLight = new THREE.DirectionalLight(0x00f2fe, 1.8);
+            dirLight.position.set(50, 150, 50);
+            scene.add(dirLight);
+
+            // Coral Sphere Obstacles (matching main.cpp positions)
+            const coralPositions = [
+                new THREE.Vector3(40, 0, 40),
+                new THREE.Vector3(-40, 10, -30),
+                new THREE.Vector3(0, -20, -60)
+            ];
+
+            const coralMeshes = [];
+            const coralMat = new THREE.MeshStandardMaterial({
+                color: 0x009999,
+                roughness: 0.3,
+                metalness: 0.1
+            });
+
+            function initCorals(geom) {
+                coralPositions.forEach(pos => {
+                    const coral = new THREE.Mesh(geom, coralMat);
+                    coral.position.copy(pos);
+                    coral.scale.set(12, 12, 12);
+                    scene.add(coral);
+                    coralMeshes.push(coral);
+                });
+            }
+
+            // Attempt loading Sphere.obj with fallback
+            const objLoader = new THREE.OBJLoader();
+            objLoader.load(
+                'assets/models/Sphere.obj',
+                (obj) => {
+                    let sphereGeom = null;
+                    obj.traverse((child) => {
+                        if (child.isMesh && !sphereGeom) sphereGeom = child.geometry;
+                    });
+                    initCorals(sphereGeom || new THREE.SphereGeometry(1, 16, 16));
+                },
+                undefined,
+                () => {
+                    initCorals(new THREE.SphereGeometry(1, 16, 16));
+                }
+            );
+
+            // Boid Simulation Setup
+            let numBoids = 120;
+            const boidArray = [];
+
+            class BoidAgent {
+                constructor() {
+                    // Wide Volume Initial Spawn (Flock.cpp distributed spawn)
+                    this.position = new THREE.Vector3(
+                        (Math.random() - 0.5) * 180,
+                        (Math.random() - 0.5) * 40,
+                        (Math.random() - 0.5) * 180
+                    );
+                    this.velocity = new THREE.Vector3(
+                        (Math.random() - 0.5) * 4,
+                        (Math.random() - 0.5) * 0.5,
+                        (Math.random() - 0.5) * 4
+                    );
+                    this.acceleration = new THREE.Vector3();
+                    this.maxSpeed = 1.2;
+                    this.maxForce = 0.05;
+                }
+
+                update(sharkPos, obstaclesActive) {
+                    const coralRadius = 16.0;
+                    const detectionBuffer = 26.0;
+
+                    // Hard Cylinder Obstacle Collision & Reflection (Fish.cpp avoidObstacles)
+                    if (obstaclesActive) {
+                        coralPositions.forEach(cPos => {
+                            let fish2D = new THREE.Vector2(this.position.x, this.position.z);
+                            let obs2D = new THREE.Vector2(cPos.x, cPos.z);
+                            let dist = fish2D.distanceTo(obs2D);
+
+                            if (dist < coralRadius) {
+                                // Direct collision: Snap to radius exterior
+                                let escapeDir = new THREE.Vector2().subVectors(fish2D, obs2D).normalize();
+                                let newPos2D = obs2D.clone().add(escapeDir.multiplyScalar(coralRadius + 0.2));
+                                this.position.x = newPos2D.x;
+                                this.position.z = newPos2D.y;
+
+                                // Reflect velocity and dampen bounce
+                                let vel2D = new THREE.Vector2(this.velocity.x, this.velocity.z);
+                                let reflected = vel2D.reflect(escapeDir);
+                                this.velocity.x = reflected.x * 0.5;
+                                this.velocity.z = reflected.y * 0.5;
+                            } else if (dist < detectionBuffer) {
+                                // Soft predictive steering
+                                let steerDir = new THREE.Vector2().subVectors(fish2D, obs2D).normalize();
+                                let strength = (detectionBuffer - dist) / detectionBuffer;
+                                this.applyForce(new THREE.Vector3(steerDir.x * strength * 0.2, 0, steerDir.y * strength * 0.2));
+                            }
+                        });
+                    }
+
+                    // Predator Flee Logic
+                    if (sharkPos) {
+                        let dToShark = this.position.distanceTo(sharkPos);
+                        if (dToShark < 45) {
+                            let flee = new THREE.Vector3().subVectors(this.position, sharkPos).normalize();
+                            this.applyForce(flee.multiplyScalar(0.35));
+                        }
+                    }
+
+                    this.velocity.add(this.acceleration);
+                    this.velocity.clampLength(0, this.maxSpeed);
+                    this.position.add(this.velocity);
+                    this.acceleration.set(0, 0, 0);
+
+                    // World boundary check (soft return force)
+                    if (this.position.length() > 120) {
+                        let pull = this.position.clone().negate().normalize().multiplyScalar(0.08);
+                        this.velocity.add(pull);
+                    }
+                }
+
+                applyForce(force) {
+                    this.acceleration.add(force);
+                }
+
+                flock(boids) {
+                    let sep = new THREE.Vector3(), ali = new THREE.Vector3(), coh = new THREE.Vector3();
+                    let count = 0;
+
+                    for (let other of boids) {
+                        let d = this.position.distanceTo(other.position);
+                        if (d > 0 && d < 18) {
+                            sep.add(new THREE.Vector3().subVectors(this.position, other.position).divideScalar(d));
+                            ali.add(other.velocity);
+                            coh.add(other.position);
+                            count++;
+                        }
+                    }
+
+                    if (count > 0) {
+                        sep.divideScalar(count).normalize().multiplyScalar(this.maxSpeed).sub(this.velocity).clampLength(0, this.maxForce * 1.6);
+                        ali.divideScalar(count).normalize().multiplyScalar(this.maxSpeed).sub(this.velocity).clampLength(0, this.maxForce);
+                        coh.divideScalar(count).sub(this.position).normalize().multiplyScalar(this.maxSpeed).sub(this.velocity).clampLength(0, this.maxForce);
+                        
+                        this.applyForce(sep.multiplyScalar(3.5));
+                        this.applyForce(ali.multiplyScalar(1.0));
+                        this.applyForce(coh.multiplyScalar(0.2));
+                    }
+                }
+            }
+
+            for (let i = 0; i < 250; i++) boidArray.push(new BoidAgent());
+
+            // Fish InstancedMesh Setup
+            let fishInstancedMesh;
+            const dummy = new THREE.Object3D();
+
+            function createSmallFishGeometry() {
+                const geom = new THREE.ConeGeometry(0.35, 1.2, 4);
+                geom.rotateX(Math.PI / 2);
+                return geom;
+            }
+
+            function initFishMesh(geometry) {
+                const material = new THREE.MeshStandardMaterial({
+                    color: 0xba9ffb,
+                    roughness: 0.3,
+                    metalness: 0.2
+                });
+                fishInstancedMesh = new THREE.InstancedMesh(geometry, material, 250);
+                scene.add(fishInstancedMesh);
+            }
+
+            objLoader.load(
+                'assets/models/Fish.obj',
+                (obj) => {
+                    let loadedGeom = null;
+                    obj.traverse((child) => {
+                        if (child.isMesh && !loadedGeom) loadedGeom = child.geometry;
+                    });
+                    initFishMesh(loadedGeom || createSmallFishGeometry());
+                },
+                undefined,
+                () => {
+                    initFishMesh(createSmallFishGeometry());
+                }
+            );
+
+            // Shark Predator Setup
+            let sharkMesh;
+            const sharkMat = new THREE.MeshStandardMaterial({
+                color: 0xd92626,
+                roughness: 0.2,
+                metalness: 0.3
+            });
+
+            function initShark(geometry) {
+                sharkMesh = new THREE.Mesh(geometry, sharkMat);
+                // Initial distributed spawn away from center
+                sharkMesh.position.set(-60, 0, -40);
+                scene.add(sharkMesh);
+            }
+
+            function createFallbackSharkGeometry() {
+                const geom = new THREE.ConeGeometry(2.0, 6.0, 5);
+                geom.rotateX(Math.PI / 2);
+                return geom;
+            }
+
+            objLoader.load(
+                'assets/models/Shark.obj',
+                (obj) => {
+                    let sharkGeom = null;
+                    obj.traverse((child) => {
+                        if (child.isMesh && !sharkGeom) sharkGeom = child.geometry;
+                    });
+                    initShark(sharkGeom || createFallbackSharkGeometry());
+                },
+                undefined,
+                () => {
+                    initShark(createFallbackSharkGeometry());
+                }
+            );
+
+            // Controls listeners
+            const boidSlider = document.getElementById('boid-count');
+            const boidVal = document.getElementById('boid-count-val');
+            if (boidSlider && boidVal) {
+                boidSlider.addEventListener('input', (e) => {
+                    numBoids = parseInt(e.target.value);
+                    boidVal.innerText = numBoids;
+                });
+            }
+
+            const toggleBtn = document.getElementById('toggle-obstacles');
+            let obstaclesActive = true;
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', () => {
+                    obstaclesActive = !obstaclesActive;
+                    coralMeshes.forEach(m => m.visible = obstaclesActive);
+                    toggleBtn.innerText = obstaclesActive ? 'Active' : 'Hidden';
+                    toggleBtn.className = obstaclesActive ? 'px-4 py-2 rounded-lg bg-emerald-500 text-slate-950 font-bold' : 'px-4 py-2 rounded-lg bg-slate-800 text-slate-400 font-bold';
+                });
+            }
+
+            // Target commitment & Shark AI variables (matching Predator.cpp)
+            let sharkVelocity = new THREE.Vector3(0, 0, 1);
+            let sharkTargetIdx = -1;
+            let sharkTargetTimer = 0;
+
+            // Animation Loop
+            function animateBoids() {
+                requestAnimationFrame(animateBoids);
+
+                // Shark Predator AI & Hard Obstacle Collisions (Predator.cpp)
+                if (sharkMesh) {
+                    sharkTargetTimer -= 0.016;
+                    if (sharkTargetIdx === -1 || sharkTargetIdx >= numBoids || sharkTargetTimer <= 0) {
+                        let minD = 9999;
+                        for (let i = 0; i < numBoids; i++) {
+                            let d = sharkMesh.position.distanceTo(boidArray[i].position);
+                            if (d < minD) {
+                                minD = d;
+                                sharkTargetIdx = i;
+                            }
+                        }
+                        sharkTargetTimer = 4.0;
+                    }
+
+                    if (boidArray[sharkTargetIdx]) {
+                        let desiredDir = new THREE.Vector3().subVectors(boidArray[sharkTargetIdx].position, sharkMesh.position).normalize();
+                        sharkVelocity.lerp(desiredDir, 0.04).normalize();
+                        sharkMesh.position.addScaledVector(sharkVelocity, 0.95);
+
+                        // Shark Hard Coral Collision check
+                        if (obstaclesActive) {
+                            coralPositions.forEach(cPos => {
+                                let shark2D = new THREE.Vector2(sharkMesh.position.x, sharkMesh.position.z);
+                                let obs2D = new THREE.Vector2(cPos.x, cPos.z);
+                                let dist = shark2D.distanceTo(obs2D);
+                                let sharkRadius = 20.0;
+
+                                if (dist < sharkRadius) {
+                                    let push = new THREE.Vector2().subVectors(shark2D, obs2D).normalize();
+                                    let snapped = obs2D.clone().add(push.multiplyScalar(sharkRadius + 0.5));
+                                    sharkMesh.position.x = snapped.x;
+                                    sharkMesh.position.z = snapped.y;
+                                }
+                            });
+                        }
+                        
+                        let targetLook = new THREE.Vector3().addVectors(sharkMesh.position, sharkVelocity);
+                        sharkMesh.lookAt(targetLook);
+                    }
+                }
+
+                // Update Fish Boids
+                let sharkPos = sharkMesh ? sharkMesh.position : null;
+                for (let i = 0; i < numBoids; i++) {
+                    boidArray[i].flock(boidArray.slice(0, numBoids));
+                    boidArray[i].update(sharkPos, obstaclesActive);
+
+                    if (fishInstancedMesh) {
+                        dummy.position.copy(boidArray[i].position);
+                        let target = new THREE.Vector3().addVectors(boidArray[i].position, boidArray[i].velocity);
+                        dummy.lookAt(target);
+                        dummy.scale.set(0.12, 0.12, 0.12);
+                        dummy.updateMatrix();
+                        fishInstancedMesh.setMatrixAt(i, dummy.matrix);
+                    }
+                }
+
+                if (fishInstancedMesh) {
+                    fishInstancedMesh.count = numBoids;
+                    fishInstancedMesh.instanceMatrix.needsUpdate = true;
+                }
+
+                renderer.render(scene, camera);
+            }
+
+            animateBoids();
+
+            window.addEventListener('resize', () => {
+                if (boidContainer) {
+                    camera.aspect = boidContainer.clientWidth / boidContainer.clientHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(boidContainer.clientWidth, boidContainer.clientHeight);
                 }
             });
-        });
-
-        // --- Contact Form Handler ---
-        document.getElementById('contact-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const res = document.getElementById('form-response');
-            res.classList.remove('hidden');
-            res.className = "p-3 rounded-lg text-center font-mono text-xs bg-emerald-950/80 text-emerald-400 border border-emerald-800";
-            res.textContent = "Thank you! Message transmitted successfully to Teni.";
-            e.target.reset();
-        });
-
-        // --- REAL-TIME 3D FISH BOIDS SIMULATION ENGINE (JS Port of C++ Codebase) ---
-        class Vector3 {
-            constructor(x=0, y=0, z=0) { this.x = x; this.y = y; this.z = z; }
-            add(v) { this.x += v.x; this.y += v.y; this.z += v.z; return this; }
-            sub(v) { this.x -= v.x; this.y -= v.y; this.z -= v.z; return this; }
-            mult(n) { this.x *= n; this.y *= n; this.z *= n; return this; }
-            div(n) { this.x /= n; this.y /= n; this.z /= n; return this; }
-            mag() { return Math.sqrt(this.x*this.x + this.y*this.y + this.z*this.z); }
-            normalize() { let m = this.mag(); if(m > 0) this.div(m); return this; }
-            limit(max) { if(this.mag() > max) { this.normalize(); this.mult(max); } return this; }
-            static dist(v1, v2) { return Math.sqrt((v1.x-v2.x)**2 + (v1.y-v2.y)**2 + (v1.z-v2.z)**2); }
-            clone() { return new Vector3(this.x, this.y, this.z); }
         }
-
-        class Boid {
-            constructor(x, y, z) {
-                this.position = new Vector3(x, y, z);
-                this.velocity = new Vector3((Math.random()-0.5)*2, (Math.random()-0.5)*0.5, (Math.random()-0.5)*2);
-                this.acceleration = new Vector3();
-                this.maxSpeed = 12.0;
-                this.maxForce = 0.5;
-
-                // Vaporwave Palette
-                let r = 0.6 + Math.random()*0.3;
-                let g = 0.4 + Math.random()*0.3;
-                let b = 0.8 + Math.random()*0.2;
-                this.color = `rgb(${Math.floor(r*255)}, ${Math.floor(g*255)}, ${Math.floor(b*255)})`;
-            }
-
-            applyForce(force) { this.acceleration.add(force); }
-
-            update(dt) {
-                this.velocity.add(this.acceleration);
-                this.velocity.limit(this.maxSpeed);
-                this.position.add(this.velocity.clone().mult(dt * 2.0));
-                this.acceleration.mult(0);
-            }
-
-            calculateBehaviors(boids, predatorPos, obstacles) {
-                this.applyForce(this.separate(boids).mult(3.5));
-                this.applyForce(this.align(boids).mult(1.0));
-                this.applyForce(this.cohesion(boids).mult(0.2));
-                this.applyForce(this.avoidObstacles(obstacles));
-
-                let distToPred = Vector3.dist(this.position, predatorPos);
-                if (distToPred < 45.0) {
-                    let fleeDir = this.position.clone().sub(predatorPos).normalize();
-                    this.applyForce(fleeDir.mult((55.0 / (distToPred + 0.1)) * 12.0));
-                }
-
-                if (this.position.mag() > 120.0) {
-                    this.applyForce(this.position.clone().mult(-1).normalize().mult(6.0));
-                }
-            }
-
-            separate(boids) {
-                let steer = new Vector3();
-                let count = 0;
-                for (let other of boids) {
-                    let d = Vector3.dist(this.position, other.position);
-                    if (d > 0 && d < 12.0) {
-                        let diff = this.position.clone().sub(other.position).normalize().div(d);
-                        steer.add(diff);
-                        count++;
-                    }
-                }
-                return count > 0 ? steer.div(count) : steer;
-            }
-
-            align(boids) {
-                let sum = new Vector3();
-                let count = 0;
-                for (let other of boids) {
-                    let d = Vector3.dist(this.position, other.position);
-                    if (d > 0 && d < 20.0) { sum.add(other.velocity); count++; }
-                }
-                return count > 0 ? sum.div(count).normalize().mult(this.maxForce) : new Vector3();
-            }
-
-            cohesion(boids) {
-                let sum = new Vector3();
-                let count = 0;
-                for (let other of boids) {
-                    let d = Vector3.dist(this.position, other.position);
-                    if (d > 0 && d < 20.0) { sum.add(other.position); count++; }
-                }
-                return count > 0 ? sum.div(count).sub(this.position).normalize().mult(this.maxForce) : new Vector3();
-            }
-
-            avoidObstacles(obstacles) {
-                let steer = new Vector3();
-                let coralRadius = 20.0, detectionBuffer = 28.0;
-                for (let obs of obstacles) {
-                    let d = Math.sqrt((this.position.x - obs.x)**2 + (this.position.z - obs.z)**2);
-                    if (d < coralRadius) {
-                        let push = new Vector3(this.position.x - obs.x, 0, this.position.z - obs.z).normalize();
-                        this.position.x = obs.x + push.x * (coralRadius + 0.2);
-                        this.position.z = obs.z + push.z * (coralRadius + 0.2);
-                        this.velocity.x *= -0.5;
-                        this.velocity.z *= -0.5;
-                    } else if (d < detectionBuffer) {
-                        let str = (detectionBuffer - d) / detectionBuffer;
-                        steer.x += (this.position.x - obs.x) * str * 1.5;
-                        steer.z += (this.position.z - obs.z) * str * 1.5;
-                    }
-                }
-                return steer;
-            }
-        }
-
-        class SharkPredator {
-            constructor() {
-                this.position = new Vector3(0, 0, -40);
-                this.velocity = new Vector3(0, 0, 1);
-                this.maxSpeed = 16.0;
-                this.targetIndex = -1;
-                this.targetTimer = 0;
-            }
-
-            update(dt, boids, speedMult) {
-                if (boids.length === 0) return;
-                this.targetTimer -= dt;
-
-                if (this.targetIndex === -1 || this.targetIndex >= boids.length || this.targetTimer <= 0) {
-                    let minD = 9999;
-                    for (let i = 0; i < boids.length; i++) {
-                        let d = Vector3.dist(this.position, boids[i].position);
-                        if (d < minD) { minD = d; this.targetIndex = i; }
-                    }
-                    this.targetTimer = 4.0;
-                }
-
-                let targetPos = boids[this.targetIndex].position;
-                let desiredDir = targetPos.clone().sub(this.position).normalize();
-                let currentDir = this.velocity.clone().normalize();
-                let smoothDir = currentDir.mult(0.96).add(desiredDir.mult(0.04)).normalize();
-
-                this.velocity = smoothDir.mult(this.maxSpeed * speedMult);
-                this.position.add(this.velocity.clone().mult(dt * 1.8));
-            }
-        }
-
-        // Render Canvas Setup
-        function initBoidsSimulation(canvasId) {
-            const canvas = document.getElementById(canvasId);
-            const ctx = canvas.getContext('2d');
-            let boids = [];
-            let bubbles = [];
-            let obstacles = [new Vector3(40, 0, 40), new Vector3(-40, 0, -30), new Vector3(0, 0, -60)];
-            let predator = new SharkPredator();
-            let showObstacles = true;
-            let sharkSpeedMultiplier = 1.0;
-
-            function resize() {
-                canvas.width = canvas.clientWidth;
-                canvas.height = canvas.clientHeight;
-            }
-            window.addEventListener('resize', resize);
-            resize();
-
-            function spawnBoids(count) {
-                boids = [];
-                for (let i = 0; i < count; i++) {
-                    boids.push(new Boid((Math.random()-0.5)*120, (Math.random()-0.5)*20, (Math.random()-0.5)*120));
-                }
-            }
-            spawnBoids(120);
-
-            let lastTime = performance.now();
-            function render() {
-                let now = performance.now();
-                let dt = Math.min((now - lastTime) / 1000.0, 0.05);
-                lastTime = now;
-
-                ctx.fillStyle = "#030611";
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                let cx = canvas.width / 2;
-                let cy = canvas.height / 2;
-                let scale = Math.min(canvas.width, canvas.height) / 260.0;
-
-                predator.update(dt, boids, sharkSpeedMultiplier);
-
-                // Draw Corals
-                if (showObstacles) {
-                    ctx.fillStyle = "rgba(0, 242, 254, 0.25)";
-                    ctx.strokeStyle = "rgba(0, 242, 254, 0.6)";
-                    for (let obs of obstacles) {
-                        let screenX = cx + obs.x * scale;
-                        let screenY = cy + obs.z * scale;
-                        ctx.beginPath();
-                        ctx.arc(screenX, screenY, 20 * scale, 0, Math.PI * 2);
-                        ctx.fill();
-                        ctx.stroke();
-                    }
-                }
-
-                // Update & Render Boids
-                for (let boid of boids) {
-                    boid.calculateBehaviors(boids, predator.position, showObstacles ? obstacles : []);
-                    boid.update(dt);
-
-                    let sx = cx + boid.position.x * scale;
-                    let sy = cy + boid.position.z * scale;
-
-                    let angle = Math.atan2(boid.velocity.z, boid.velocity.x);
-
-                    ctx.save();
-                    ctx.translate(sx, sy);
-                    ctx.rotate(angle);
-                    ctx.fillStyle = boid.color;
-                    ctx.beginPath();
-                    ctx.moveTo(8 * scale, 0);
-                    ctx.lineTo(-6 * scale, -4 * scale);
-                    ctx.lineTo(-4 * scale, 0);
-                    ctx.lineTo(-6 * scale, 4 * scale);
-                    ctx.closePath();
-                    ctx.fill();
-                    ctx.restore();
-
-                    // Bubble particles
-                    if (Math.random() < 0.008) {
-                        bubbles.push({ x: sx, y: sy, radius: Math.random() * 2 + 1, alpha: 0.8, vy: -Math.random() * 1.5 - 0.5 });
-                    }
-                }
-
-                // Draw Shark Predator
-                let px = cx + predator.position.x * scale;
-                let py = cy + predator.position.z * scale;
-                let pAngle = Math.atan2(predator.velocity.z, predator.velocity.x);
-
-                ctx.save();
-                ctx.translate(px, py);
-                ctx.rotate(pAngle);
-                ctx.fillStyle = "#ff2a6d";
-                ctx.beginPath();
-                ctx.moveTo(18 * scale, 0);
-                ctx.lineTo(-12 * scale, -8 * scale);
-                ctx.lineTo(-8 * scale, 0);
-                ctx.lineTo(-12 * scale, 8 * scale);
-                ctx.closePath();
-                ctx.fill();
-                ctx.restore();
-
-                // Draw Bubbles
-                for (let i = bubbles.length - 1; i >= 0; i--) {
-                    let b = bubbles[i];
-                    b.y += b.vy;
-                    b.alpha -= 0.01;
-                    if (b.alpha <= 0) { bubbles.splice(i, 1); continue; }
-
-                    ctx.fillStyle = `rgba(180, 220, 255, ${b.alpha})`;
-                    ctx.beginPath();
-                    ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-
-                requestAnimationFrame(render);
-            }
-
-            render();
-
-            return {
-                setPopulation: (n) => spawnBoids(n),
-                toggleObstacles: () => { showObstacles = !showObstacles; },
-                setSharkSpeed: (s) => { sharkSpeedMultiplier = s; }
-            };
-        }
-
-        const heroSim = initBoidsSimulation('hero-canvas');
-        const demoSim = initBoidsSimulation('boidsCanvas');
-
-        // Boid Controls Event Listeners
-        document.getElementById('boid-count-slider').addEventListener('input', (e) => {
-            const count = parseInt(e.target.value);
-            document.getElementById('boid-count-val').textContent = count;
-            demoSim.setPopulation(count);
-            heroSim.setPopulation(count);
-        });
-
-        document.getElementById('shark-speed-slider').addEventListener('input', (e) => {
-            const speed = parseFloat(e.target.value);
-            document.getElementById('shark-speed-val').textContent = speed.toFixed(1) + 'x';
-            demoSim.setSharkSpeed(speed);
-            heroSim.setSharkSpeed(speed);
-        });
-
-        document.getElementById('toggle-obstacles-btn').addEventListener('click', () => {
-            demoSim.toggleObstacles();
-            heroSim.toggleObstacles();
-        });
-
-        document.getElementById('respawn-boids-btn').addEventListener('click', () => {
-            const count = parseInt(document.getElementById('boid-count-slider').value);
-            demoSim.setPopulation(count);
-            heroSim.setPopulation(count);
-        });
     </script>
 </body>
 </html>
