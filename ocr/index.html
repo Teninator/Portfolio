@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingredient & Toxin OCR Scanner | Teni Adegbite</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts & FontAwesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Tesseract.js v5 WebAssembly OCR CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #070a12;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+        .glass-panel {
+            background: rgba(16, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-nav {
+            background: rgba(7, 10, 18, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .text-gradient-emerald {
+            background: linear-gradient(135deg, #10b981 0%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="selection:bg-emerald-500 selection:text-slate-950">
+
+    <!-- Navigation Bar -->
+    <header class="fixed top-0 left-0 w-full z-50 glass-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="../" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 via-cyan-500 to-blue-600 flex items-center justify-center font-bold text-slate-950 text-xl shadow-lg group-hover:scale-105 transition-transform">
+                    TA
+                </div>
+                <div>
+                    <span class="font-bold text-lg tracking-tight text-white group-hover:text-emerald-400 transition-colors block leading-none">Teni Adegbite</span>
+                    <span class="text-[10px] font-mono text-slate-400 block mt-1">← Back to Portfolio</span>
+                </div>
+            </a>
+
+            <nav class="flex items-center gap-5 text-sm font-medium">
+                <a href="../" class="text-slate-300 hover:text-cyan-400 transition-colors hidden sm:inline">Home</a>
+                <a href="../projects/" class="text-slate-300 hover:text-cyan-400 transition-colors">Projects & 3D Lab</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main OCR Workspace -->
+    <main class="pt-28 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div class="max-w-3xl mb-10 space-y-3">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel border border-emerald-500/30 text-emerald-400 text-xs font-mono">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>100% Client-Side WebAssembly OCR • Zero Server Uploads</span>
+            </div>
+            <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+                Ingredient & <span class="text-gradient-emerald">Toxin Scanner</span>
+            </h1>
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                Upload a photo of any <strong class="text-white">food label, cosmetic, or skincare bottle</strong> (or paste an ingredient list). The in-browser computer vision pipeline enhances text contrast, extracts ingredients via Tesseract WASM, and flags known carcinogens, endocrine disruptors, and harmful additives.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Left Column: Image Input & CV Pre-Processing -->
+            <div class="lg:col-span-6 space-y-6">
+                
+                <!-- Upload / Camera Box -->
+                <div class="glass-panel p-6 rounded-2xl border border-slate-800 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-sm font-bold text-white uppercase tracking-wider font-mono flex items-center gap-2">
+                            <i class="fa-solid fa-camera text-emerald-400"></i> 1. Capture or Upload Label
+                        </h2>
+                        <div class="flex gap-2">
+                            <button id="sample-food-btn" class="text-[11px] font-mono px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-slate-700 transition-colors">
+                                Test Food Label
+                            </button>
+                            <button id="sample-makeup-btn" class="text-[11px] font-mono px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-purple-400 border border-slate-700 transition-colors">
+                                Test Cosmetic Label
+                            </button>
+                        </div>
+                    </div>
+
+                    <label for="image-upload" class="border-2 border-dashed border-slate-700 hover:border-emerald-400/70 rounded-xl p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-colors bg-slate-950/60">
+                        <i class="fa-solid fa-cloud-arrow-up text-3xl text-emerald-400 mb-2"></i>
+                        <span class="text-sm font-semibold text-white">Click to upload or take a photo</span>
+                        <span class="text-xs text-slate-400 mt-1">Supports JPG, PNG, WebP • Processed locally on your device</span>
+                        <input type="file" id="image-upload" accept="image/*" capture="environment" class="hidden">
+                    </label>
+
+                    <!-- CV Preprocessing Controls -->
+                    <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-3 text-xs font-mono">
+                        <div class="flex items-center justify-between text-slate-300">
+                            <span>CV Contrast Filter: <strong id="contrast-val" class="text-emerald-400">135%</strong></span>
+                            <label class="inline-flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" id="grayscale-toggle" checked class="accent-emerald-400">
+                                <span>Grayscale Binarize</span>
+                            </label>
+                        </div>
+                        <input type="range" id="contrast-slider" min="80" max="240" value="135" class="w-full accent-emerald-400">
+                        <p class="text-[11px] text-slate-500">Tip: Increase contrast for shiny wrappers or curved cosmetic bottles before scanning.</p>
+                    </div>
+
+                    <!-- Preview Canvas -->
+                    <div id="canvas-wrapper" class="hidden space-y-3">
+                        <div class="relative rounded-xl overflow-hidden border border-slate-800 bg-black flex justify-center max-h-72">
+                            <canvas id="cv-canvas" class="max-h-72 w-auto object-contain"></canvas>
+                        </div>
+                        <button id="run-ocr-btn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-400 to-cyan-500 text-slate-950 font-bold text-sm hover:shadow-lg hover:shadow-emerald-500/20 transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> Extract & Analyze Ingredients
+                        </button>
+                    </div>
+
+                    <!-- OCR Progress Bar -->
+                    <div id="ocr-progress-box" class="hidden space-y-2 p-4 rounded-xl bg-slate-900 border border-emerald-500/30 font-mono text-xs">
+                        <div class="flex justify-between text-emerald-400">
+                            <span id="ocr-status-text">Initializing WebAssembly OCR worker...</span>
+                            <span id="ocr-percent">0%</span>
+                        </div>
+                        <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+                            <div id="ocr-progress-bar" class="bg-emerald-400 h-2 transition-all duration-200" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Extracted / Editable Raw Text Box -->
+                <div class="glass-panel p-6 rounded-2xl border border-slate-800 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-sm font-bold text-white uppercase tracking-wider font-mono flex items-center gap-2">
+                            <i class="fa-solid fa-align-left text-cyan-400"></i> 2. Extracted Ingredient Text
+                        </h2>
+                        <button id="reanalyze-text-btn" class="text-xs font-mono px-3 py-1.5 rounded-lg bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 hover:bg-cyan-500/30 transition-colors">
+                            Re-Scan Text <i class="fa-solid fa-rotate-right ml-1"></i>
+                        </button>
+                    </div>
+                    <textarea id="extracted-text" rows="5" placeholder="Extracted OCR text will appear here—or paste any ingredient list directly to test..." class="w-full p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-200 font-mono text-xs focus:outline-none focus:border-emerald-400 leading-relaxed"></textarea>
+                </div>
+
+            </div>
+
+            <!-- Right Column: Toxicology & Hazard Breakdown -->
+            <div class="lg:col-span-6 space-y-6">
+                <div class="glass-panel p-6 rounded-2xl border border-slate-800 min-h-[540px] flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between pb-4 border-b border-slate-800 mb-5">
+                            <h2 class="text-sm font-bold text-white uppercase tracking-wider font-mono flex items-center gap-2">
+                                <i class="fa-solid fa-triangle-exclamation text-amber-400"></i> 3. Toxicology & Hazard Report
+                            </h2>
+                            <span id="hazard-summary-badge" class="text-xs font-mono px-3 py-1 rounded-full bg-slate-900 border border-slate-700 text-slate-400">
+                                Awaiting Scan
+                            </span>
+                        </div>
+
+                        <!-- Results Container -->
+                        <div id="results-container" class="space-y-4">
+                            <div class="text-center py-16 px-4 space-y-3 text-slate-400">
+                                <i class="fa-solid fa-microscope text-4xl text-slate-600"></i>
+                                <p class="text-sm font-medium text-slate-300">No ingredients scanned yet</p>
+                                <p class="text-xs max-w-md mx-auto leading-relaxed">
+                                    Upload a product label on the left or click <strong class="text-cyan-400">Test Food Label</strong> / <strong class="text-purple-400">Test Cosmetic Label</strong> to see real-time carcinogen and chemical analysis.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-4 border-t border-slate-800/80 text-[11px] text-slate-500 leading-relaxed">
+                        <strong>Disclaimer:</strong> Built by Teni Adegbite for educational & informational screening using IARC, FDA, and EU cosmetic ingredient classifications. Not medical advice.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // --- 1. Toxicology & Carcinogen Knowledge Base (Food + Cosmetics/Makeup) ---
+        const CHEMICAL_DATABASE = [
+            {
+                name: "BHA (Butylated Hydroxyanisole)",
+                aliases: ["bha", "butylated hydroxyanisole", "e320"],
+                severity: "HIGH",
+                tag: "Possible Human Carcinogen (IARC Group 2B)",
+                category: "Food & Makeup Preservative",
+                effects: "Classified by the International Agency for Research on Cancer (IARC) as possibly carcinogenic to humans. Linked to stomach tumors in animal studies and endocrine (hormone) disruption when ingested or absorbed."
+            },
+            {
+                name: "BHT (Butylated Hydroxytoluene)",
+                aliases: ["bht", "butylated hydroxytoluene", "e321"],
+                severity: "MODERATE",
+                tag: "Endocrine & Organ Toxicity Concern",
+                category: "Food & Cosmetic Antioxidant",
+                effects: "Repeated ingestion is associated with liver, thyroid, and kidney enlargement in animal toxicology studies, as well as potential estrogen-mimicking endocrine interference."
+            },
+            {
+                name: "Red 40 (Allura Red AC)",
+                aliases: ["red 40", "allura red", "fd&c red no. 40", "e129", "ci 16035"],
+                severity: "MODERATE",
+                tag: "Synthetic Petroleum Dye • Gut & Behavioral Impact",
+                category: "Food & Lip Cosmetic Dye",
+                effects: "Derived from petroleum distillates. Studies link consumption to hyperactivity/neurobehavioral sensitivity in children, gut microbiome inflammation, and trace contamination with benzidine (a known carcinogen)."
+            },
+            {
+                name: "Titanium Dioxide",
+                aliases: ["titanium dioxide", "e171", "ci 77891"],
+                severity: "HIGH",
+                tag: "Banned in EU Food • Genotoxicity Concern",
+                category: "Food Whitener & Makeup Pigment",
+                effects: "Banned as a food additive in the European Union (EFSA) because ingested nanoparticles can accumulate in organs and cause DNA strand breaks (genotoxicity). Safe in non-spray sunscreens, risky when ingested or inhaled."
+            },
+            {
+                name: "Sodium Nitrite / Nitrate",
+                aliases: ["sodium nitrite", "sodium nitrate", "potassium nitrite", "e250", "e251"],
+                severity: "HIGH",
+                tag: "Forms Carcinogenic Nitrosamines",
+                category: "Processed Meat Preservative",
+                effects: "When ingested with proteins or exposed to high heat, nitrites form N-nitroso compounds (nitrosamines), which are strongly linked to colorectal and stomach cancers (IARC Group 2A)."
+            },
+            {
+                name: "Potassium Bromate",
+                aliases: ["potassium bromate", "bromated flour", "e924"],
+                severity: "HIGH",
+                tag: "Probable Carcinogen (IARC Group 2B)",
+                category: "Baked Goods Flour Improver",
+                effects: "Banned in Canada, the EU, and the UK. Causes renal (kidney) and thyroid tumors in animal testing and induces oxidative DNA damage if residual bromate remains after baking."
+            },
+            {
+                name: "Propylparaben / Methylparaben",
+                aliases: ["propylparaben", "methylparaben", "butylparaben", "ethylparaben", "paraben"],
+                severity: "HIGH",
+                tag: "Endocrine Disruptor",
+                category: "Makeup, Skincare & Food Preservative",
+                effects: "Mimics estrogen in the body, disrupting hormone signaling, fertility markers, and thyroid function. Detected in human breast tissue samples."
+            },
+            {
+                name: "Formaldehyde Releasers (DMDM Hydantoin / Quaternium-15)",
+                aliases: ["dmdm hydantoin", "quaternium-15", "imidazolidinyl urea", "diazolidinyl urea", "formaldehyde"],
+                severity: "HIGH",
+                tag: "Known Human Carcinogen (IARC Group 1)",
+                category: "Cosmetics, Hair & Nail Products",
+                effects: "Slowly releases formaldehyde gas over time to prevent bacterial growth. Formaldehyde is a Group 1 human carcinogen linked to nasopharyngeal cancer, leukemia, and severe allergic contact dermatitis."
+            },
+            {
+                name: "PFAS / PTFE (Teflon)",
+                aliases: ["ptfe", "polytetrafluoroethylene", "perfluorooctyl", "polyperfluoromethylisopropyl ether", "pfas"],
+                severity: "HIGH",
+                tag: "Forever Chemical • Bioaccumulates",
+                category: "Waterproof Makeup & Packaging",
+                effects: "Persistent fluorochemicals that do not break down in the body. Associated with kidney/testicular cancer, suppressed immune response, liver enzyme elevation, and developmental toxicity."
+            },
+            {
+                name: "Phthalates (DBP / DEP / Fragrance)",
+                aliases: ["dibutyl phthalate", "diethyl phthalate", "phthalate", "parfum", "fragrance"],
+                severity: "MODERATE",
+                tag: "Reproductive & Hormone Disruptor",
+                category: "Perfumes, Nail Polish & Lotions",
+                effects: "Often hidden under generic 'Fragrance/Parfum' labels. Linked to anti-androgenic effects, lowered testosterone, reproductive toxicity, and insulin resistance."
+            },
+            {
+                name: "Sodium Lauryl Sulfate (SLS)",
+                aliases: ["sodium lauryl sulfate", "sls", "sodium laureth sulfate", "sles"],
+                severity: "LOW",
+                tag: "Skin Barrier Irritant • Potential 1,4-Dioxane",
+                category: "Cleansers, Toothpaste & Shampoos",
+                effects: "Strips natural skin lipids causing mucosal and dermal irritation (canker sores in toothpaste). Ethoxylated SLES can carry trace 1,4-dioxane, a probable carcinogen."
+            },
+            {
+                name: "Acesulfame Potassium / Aspartame",
+                aliases: ["acesulfame potassium", "acesulfame k", "aspartame", "e950", "e951"],
+                severity: "LOW",
+                tag: "Artificial Sweetener Watchlist",
+                category: "Diet Foods & Beverages",
+                effects: "Aspartame is classified as IARC Group 2B (limited evidence). Both sweeteners can alter gut microbiota glucose tolerance in sensitive individuals."
+            },
+            {
+                name: "Talc",
+                aliases: ["talc", "magnesium silicate"],
+                severity: "MODERATE",
+                tag: "Asbestos Cross-Contamination Risk",
+                category: "Pressed Powders, Blush & Eyeshadow",
+                effects: "Natural talc deposits frequently occur alongside asbestos fibers. Unpurified cosmetic talc poses inhalation and ovarian inflammation risks."
+            }
+        ];
+
+        // --- 2. Canvas Image Preprocessing & Upload Logic ---
+        const imageUpload = document.getElementById('image-upload');
+        const cvCanvas = document.getElementById('cv-canvas');
+        const ctx = cvCanvas.getContext('2d');
+        const canvasWrapper = document.getElementById('canvas-wrapper');
+        const contrastSlider = document.getElementById('contrast-slider');
+        const contrastVal = document.getElementById('contrast-val');
+        const grayscaleToggle = document.getElementById('grayscale-toggle');
+
+        let loadedImage = null;
+
+        function renderProcessedCanvas() {
+            if (!loadedImage) return;
+            const maxDim = 1400;
+            let w = loadedImage.width;
+            let h = loadedImage.height;
+            if (w > maxDim || h > maxDim) {
+                const ratio = Math.min(maxDim / w, maxDim / h);
+                w = Math.round(w * ratio);
+                h = Math.round(h * ratio);
+            }
+            cvCanvas.width = w;
+            cvCanvas.height = h;
+
+            const contrast = contrastSlider.value;
+            const isGray = grayscaleToggle.checked;
+            ctx.filter = `${isGray ? 'grayscale(100%)' : ''} contrast(${contrast}%)`;
+            ctx.drawImage(loadedImage, 0, 0, w, h);
+        }
+
+        imageUpload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const img = new Image();
+                img.onload = () => {
+                    loadedImage = img;
+                    canvasWrapper.classList.remove('hidden');
+                    renderProcessedCanvas();
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        contrastSlider.addEventListener('input', () => {
+            contrastVal.innerText = `${contrastSlider.value}%`;
+            renderProcessedCanvas();
+        });
+        grayscaleToggle.addEventListener('change', renderProcessedCanvas);
+
+        // --- 3. Tesseract.js WebAssembly OCR Execution ---
+        const runOcrBtn = document.getElementById('run-ocr-btn');
+        const progressBox = document.getElementById('ocr-progress-box');
+        const statusText = document.getElementById('ocr-status-text');
+        const percentText = document.getElementById('ocr-percent');
+        const progressBar = document.getElementById('ocr-progress-bar');
+        const extractedTextarea = document.getElementById('extracted-text');
+
+        runOcrBtn.addEventListener('click', async () => {
+            if (!loadedImage) return;
+            progressBox.classList.remove('hidden');
+            runOcrBtn.disabled = true;
+            runOcrBtn.classList.add('opacity-50');
+
+            try {
+                const worker = await Tesseract.createWorker('eng', 1, {
+                    logger: m => {
+                        if (m.status) statusText.innerText = m.status;
+                        if (typeof m.progress === 'number') {
+                            const pct = Math.round(m.progress * 100);
+                            percentText.innerText = `${pct}%`;
+                            progressBar.style.width = `${pct}%`;
+                        }
+                    }
+                });
+
+                const { data: { text } } = await worker.recognize(cvCanvas);
+                await worker.terminate();
+
+                extractedTextarea.value = text.trim();
+                analyzeIngredients(text);
+            } catch (err) {
+                console.error(err);
+                statusText.innerText = "Error running OCR worker. Check console.";
+            } finally {
+                runOcrBtn.disabled = false;
+                runOcrBtn.classList.remove('opacity-50');
+            }
+        });
+
+        // --- 4. Fuzzy Matching & Hazard Analyzer ---
+        function levenshtein(a, b) {
+            const matrix = Array.from({ length: a.length + 1 }, () => Array(b.length + 1).fill(0));
+            for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
+            for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
+            for (let i = 1; i <= a.length; i++) {
+                for (let j = 1; j <= b.length; j++) {
+                    const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+                    matrix[i][j] = Math.min(matrix[i - 1][j] + 1, matrix[i][j - 1] + 1, matrix[i - 1][j - 1] + cost);
+                }
+            }
+            return matrix[a.length][b.length];
+        }
+
+        function analyzeIngredients(rawText) {
+            const resultsContainer = document.getElementById('results-container');
+            const summaryBadge = document.getElementById('hazard-summary-badge');
+            const cleanText = rawText.toLowerCase().replace(/[^a-z0-9\s,\-\(\)&]/g, ' ');
+            
+            const tokens = cleanText.split(/[,;\n\(\)]+/).map(t => t.trim()).filter(Boolean);
+            const detected = [];
+
+            CHEMICAL_DATABASE.forEach(chem => {
+                let matched = false;
+
+                for (const alias of chem.aliases) {
+                    if (alias.length >= 4 && cleanText.includes(alias)) {
+                        matched = true;
+                        break;
+                    }
+                    const wordRegex = new RegExp(`\\b${alias}\\b`, 'i');
+                    if (wordRegex.test(cleanText)) {
+                        matched = true;
+                        break;
+                    }
+                    if (alias.length >= 8) {
+                        for (const token of tokens) {
+                            if (Math.abs(token.length - alias.length) <= 2 && levenshtein(token, alias) <= 2) {
+                                matched = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (matched) break;
+                }
+
+                if (matched) detected.push(chem);
+            });
+
+            if (detected.length === 0) {
+                summaryBadge.innerText = "0 Flagged Toxins Found";
+                summaryBadge.className = "text-xs font-mono px-3 py-1 rounded-full bg-emerald-950 border border-emerald-700 text-emerald-400";
+                resultsContainer.innerHTML = `
+                    <div class="p-6 rounded-2xl bg-emerald-950/30 border border-emerald-500/30 text-center space-y-2">
+                        <i class="fa-solid fa-circle-check text-3xl text-emerald-400"></i>
+                        <h3 class="text-base font-bold text-white">No High-Risk Carcinogens or Flagged Additives Detected</h3>
+                        <p class="text-xs text-slate-300">None of the chemicals in our watchlist matched the extracted text. Double-check the text box on the left for any misread words.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const rank = { HIGH: 1, MODERATE: 2, LOW: 3 };
+            detected.sort((a, b) => rank[a.severity] - rank[b.severity]);
+
+            const highCount = detected.filter(d => d.severity === 'HIGH').length;
+            summaryBadge.innerText = `${detected.length} Flagged (${highCount} High Concern)`;
+            summaryBadge.className = highCount > 0
+                ? "text-xs font-mono px-3 py-1 rounded-full bg-red-950 border border-red-700 text-red-400"
+                : "text-xs font-mono px-3 py-1 rounded-full bg-amber-950 border border-amber-700 text-amber-400";
+
+            resultsContainer.innerHTML = detected.map(item => {
+                const styles = item.severity === 'HIGH'
+                    ? { border: 'border-red-500/50', bg: 'bg-red-950/25', badge: 'bg-red-500/20 text-red-400 border-red-500/40', icon: 'fa-skull-crossbones text-red-400' }
+                    : item.severity === 'MODERATE'
+                    ? { border: 'border-amber-500/50', bg: 'bg-amber-950/20', badge: 'bg-amber-500/20 text-amber-400 border-amber-500/40', icon: 'fa-triangle-exclamation text-amber-400' }
+                    : { border: 'border-cyan-500/40', bg: 'bg-cyan-950/20', badge: 'bg-cyan-500/20 text-cyan-400 border-cyan-500/40', icon: 'fa-circle-info text-cyan-400' };
+
+                return `
+                    <div class="p-4 rounded-xl border ${styles.border} ${styles.bg} space-y-2">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <h3 class="font-bold text-white text-sm flex items-center gap-2">
+                                <i class="fa-solid ${styles.icon}"></i> ${item.name}
+                            </h3>
+                            <span class="text-[10px] font-mono px-2.5 py-0.5 rounded border ${styles.badge} font-semibold">
+                                ${item.severity} • ${item.tag}
+                            </span>
+                        </div>
+                        <div class="text-[11px] font-mono text-slate-400">${item.category}</div>
+                        <p class="text-xs text-slate-200 leading-relaxed">${item.effects}</p>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        document.getElementById('reanalyze-text-btn').addEventListener('click', () => {
+            analyzeIngredients(extractedTextarea.value);
+        });
+
+        function loadSampleLabel(sampleText) {
+            extractedTextarea.value = sampleText;
+            
+            cvCanvas.width = 760;
+            cvCanvas.height = 240;
+            ctx.filter = 'none';
+            ctx.fillStyle = '#f8fafc';
+            ctx.fillRect(0, 0, 760, 240);
+            ctx.strokeStyle = '#0f172a';
+            ctx.lineWidth = 4;
+            ctx.strokeRect(10, 10, 740, 220);
+            ctx.fillStyle = '#0f172a';
+            ctx.font = 'bold 16px monospace';
+            
+            const words = sampleText.split(' ');
+            let line = '';
+            let y = 45;
+            for (let n = 0; n < words.length; n++) {
+                const testLine = line + words[n] + ' ';
+                if (ctx.measureText(testLine).width > 700 && n > 0) {
+                    ctx.fillText(line, 25, y);
+                    line = words[n] + ' ';
+                    y += 24;
+                } else {
+                    line = testLine;
+                }
+            }
+            ctx.fillText(line, 25, y);
+            canvasWrapper.classList.remove('hidden');
+            analyzeIngredients(sampleText);
+        }
+
+        document.getElementById('sample-food-btn').addEventListener('click', () => {
+            loadSampleLabel("INGREDIENTS: ENRICHED WHEAT FLOUR, SUGAR, PALM OIL, POTASSIUM BROMATE, TITANIUM DIOXIDE, RED 40, BHA (PRESERVATIVE), SODIUM NITRITE, NATURAL AND ARTIFICIAL FLAVORS.");
+        });
+
+        document.getElementById('sample-makeup-btn').addEventListener('click', () => {
+            loadSampleLabel("INGREDIENTS: AQUA, TALC, CYCLOPENTASILOXANE, PROPYLPARABEN, METHYLPARABEN, DMDM HYDANTOIN, PTFE, PARFUM, CI 77891 (TITANIUM DIOXIDE), RED 40 LAKE.");
+        });
+    </script>
+</body>
+</html>

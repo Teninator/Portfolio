@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects & 3D Engine | Teni Adegbite</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#070a12',
+                            card: '#10172a',
+                            border: '#1e293b',
+                            cyan: '#00f2fe',
+                            blue: '#4facfe',
+                            purple: '#7c3aed',
+                            emerald: '#10b981',
+                            amber: '#f59e0b'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts & FontAwesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Three.js and OBJLoader -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #070a12;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+        .glass-panel {
+            background: rgba(16, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-nav {
+            background: rgba(7, 10, 18, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .card-perspective {
+            perspective: 1000px;
+            min-height: 360px;
+            height: 100%;
+        }
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            min-height: 360px;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+        .card-perspective:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+        .card-front, .card-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        .card-back {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body class="selection:bg-cyan-500 selection:text-slate-900">
+
+    <!-- Navigation Bar -->
+    <header class="fixed top-0 left-0 w-full z-50 glass-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="../" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 via-blue-500 to-purple-600 flex items-center justify-center font-bold text-slate-950 text-xl shadow-lg group-hover:scale-105 transition-transform">
+                    TA
+                </div>
+                <div>
+                    <span class="font-bold text-lg tracking-tight text-white group-hover:text-cyan-400 transition-colors block leading-none">Teni Adegbite</span>
+                    <span class="text-[10px] font-mono text-slate-400 block mt-1">← Back to Main Portfolio</span>
+                </div>
+            </a>
+
+            <nav class="flex items-center gap-5 text-sm font-medium">
+                <a href="../" class="text-slate-300 hover:text-cyan-400 transition-colors hidden sm:inline">Home</a>
+                <a href="#interactive-demo" class="text-cyan-400 hover:text-cyan-300 transition-colors hidden sm:inline">3D Boids Lab</a>
+                <a href="../ocr/" class="text-emerald-400 hover:text-emerald-300 transition-colors font-mono text-xs bg-emerald-950/60 border border-emerald-700/50 px-3 py-1.5 rounded-lg">
+                    <i class="fa-solid fa-camera"></i> Toxin OCR Tool
+                </a>
+                <a href="../Teni Adegbite Resume Q4.pdf" download="Teni Adegbite Resume Q4.pdf" target="_blank" class="px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-400 to-blue-600 text-slate-950 font-bold text-xs flex items-center gap-1.5">
+                    <i class="fa-solid fa-file-pdf"></i> Resume
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Projects Section -->
+    <section id="projects" class="pt-32 pb-20 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <div class="inline-flex items-center gap-2 text-cyan-400 font-mono text-xs uppercase tracking-widest mb-2">
+                    <i class="fa-solid fa-laptop-code"></i> Engineering & Graphics Archive
+                </div>
+                <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">Projects & Interactive Demos</h1>
+            </div>
+
+            <div class="max-w-2xl mx-auto mb-10 space-y-4">
+                <div class="relative">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-3.5 text-slate-400 text-sm"></i>
+                    <input type="text" id="project-search" placeholder="Search by language or keyword (e.g. C++, Tesseract, YOLOv8, OpenGL, Flutter)..." class="w-full pl-11 pr-4 py-3 rounded-xl glass-panel border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 text-sm font-mono transition-colors">
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-2" id="filter-container">
+                    <button data-filter="all" class="filter-btn active px-4 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all bg-gradient-to-r from-cyan-400 to-blue-600 text-slate-950">All Works</button>
+                    <button data-filter="ai-fullstack" class="filter-btn px-4 py-1.5 rounded-lg text-xs font-mono font-semibold glass-panel text-slate-300 hover:text-white border border-slate-800">AI, OCR & Full-Stack</button>
+                    <button data-filter="cpp-graphics" class="filter-btn px-4 py-1.5 rounded-lg text-xs font-mono font-semibold glass-panel text-slate-300 hover:text-white border border-slate-800">C++ & Graphics</button>
+                    <button data-filter="embedded-robotics" class="filter-btn px-4 py-1.5 rounded-lg text-xs font-mono font-semibold glass-panel text-slate-300 hover:text-white border border-slate-800">Embedded & Systems</button>
+                    <button data-filter="tech-art" class="filter-btn px-4 py-1.5 rounded-lg text-xs font-mono font-semibold glass-panel text-slate-300 hover:text-white border border-slate-800">Tech Art & Tools</button>
+                </div>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch" id="projects-grid">
+
+                <!-- 0. Ingredient & Toxin OCR Scanner -->
+                <div class="project-card card-perspective" data-category="ai-fullstack" data-tags="ocr tesseract webassembly javascript computer vision canvas carcinogens cosmetics food ingredients">
+                    <div class="card-inner">
+                        <div class="card-front glass-panel border border-emerald-500/40 p-6 flex flex-col justify-between shadow-xl">
+                            <div>
+                                <div class="flex justify-between items-start mb-3">
+                                    <span class="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-lg"><i class="fa-solid fa-flask-vial"></i></span>
+                                    <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-800/60">Live Web App</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-white mb-2">Toxin & Carcinogen OCR</h3>
+                                <p class="text-slate-300 text-xs leading-relaxed mb-3">100% client-side WebAssembly OCR scanner that reads food and cosmetic ingredient labels to flag carcinogens and harmful additives.</p>
+                            </div>
+                            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
+                                <span class="text-[10px] font-mono text-slate-400">Tesseract WASM • CV Canvas</span>
+                                <span class="text-[11px] font-mono text-emerald-400">Hover/Tap <i class="fa-solid fa-rotate"></i></span>
+                            </div>
+                        </div>
+                        <div class="card-back glass-panel border border-emerald-500/50 p-6 flex flex-col justify-between bg-slate-900 shadow-2xl">
+                            <div>
+                                <h4 class="text-base font-bold text-emerald-400 mb-2">Computer Vision & Toxicology</h4>
+                                <ul class="text-slate-300 text-xs space-y-2 mb-3">
+                                    <li>• Custom HTML5 Canvas contrast & binarization pre-processing for curved product packaging.</li>
+                                    <li>• Fuzzy Levenshtein matcher cross-referencing IARC carcinogens, parabens, phthalates, and food dyes.</li>
+                                </ul>
+                            </div>
+                            <a href="../ocr/" class="w-full py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-center text-xs">Launch Live Scanner <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1. Ontario Tech Plus -->
+                <div class="project-card card-perspective" data-category="ai-fullstack" data-tags="flutter dart riverpod supabase mobile cross-platform accessibility high-contrast opendyslexic unit testing">
+                    <div class="card-inner">
+                        <div class="card-front glass-panel border border-slate-800 p-6 flex flex-col justify-between hover:border-blue-500/50 transition-all shadow-xl">
+                            <div>
+                                <div class="flex justify-between items-start mb-3">
+                                    <span class="p-2.5 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20 text-lg"><i class="fa-solid fa-mobile-screen-button"></i></span>
+                                    <span class="text-[10px] font-mono text-blue-400 bg-blue-950/80 px-2 py-0.5 rounded border border-blue-800/60">Cross-Platform App</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-white mb-2">Ontario Tech Plus</h3>
+                                <p class="text-slate-300 text-xs leading-relaxed mb-3">Cross-platform student mobile app built in Flutter and Dart using Riverpod for state management and Supabase for live data updates.</p>
+                            </div>
+                            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
+                                <span class="text-[10px] font-mono text-slate-400">Flutter • Dart • Supabase</span>
+                                <span class="text-[11px] font-mono text-blue-400">Hover/Tap <i class="fa-solid fa-rotate"></i></span>
+                            </div>
+                        </div>
+                        <div class="card-back glass-panel border border-blue-500/40 p-6 flex flex-col justify-between bg-slate-900 shadow-2xl">
+                            <div>
+                                <h4 class="text-base font-bold text-blue-400 mb-2">Accessibility & Testing</h4>
+                                <ul class="text-slate-300 text-xs space-y-2 mb-3">
+                                    <li>• Added accessibility options including high-contrast modes and OpenDyslexic font support.</li>
+                                    <li>• Ran unit tests and verified UI layouts across multiple screen sizes to prevent broken interfaces.</li>
+                                </ul>
+                            </div>
+                            <a href="https://github.com/teninator" target="_blank" class="w-full py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold text-center text-xs">Mobile App Code <i class="fa-brands fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. GlycoLens AI Estimator -->
+                <div class="project-card card-perspective" data-category="ai-fullstack" data-tags="python fastapi yolov8 vision rest apis json machine learning food carbs">
+                    <div class="card-inner">
+                        <div class="card-front glass-panel border border-slate-800 p-6 flex flex-col justify-between hover:border-purple-500/50 transition-all shadow-xl">
+                            <div>
+                                <div class="flex justify-between items-start mb-3">
+                                    <span class="p-2.5 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 text-lg"><i class="fa-solid fa-eye"></i></span>
+                                    <span class="text-[10px] font-mono text-purple-400 bg-purple-950/80 px-2 py-0.5 rounded border border-purple-800/60">AI Vision & API</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-white mb-2">GlycoLens</h3>
+                                <p class="text-slate-300 text-xs leading-relaxed mb-3">Python FastAPI backend running YOLOv8 vision models to detect food items in meal photos with 88% accuracy.</p>
+                            </div>
+                            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
+                                <span class="text-[10px] font-mono text-slate-400">Python • YOLOv8 • FastAPI</span>
+                                <span class="text-[11px] font-mono text-purple-400">Hover/Tap <i class="fa-solid fa-rotate"></i></span>
+                            </div>
+                        </div>
+                        <div class="card-back glass-panel border border-purple-500/40 p-6 flex flex-col justify-between bg-slate-900 shadow-2xl">
+                            <div>
+                                <h4 class="text-base font-bold text-purple-400 mb-2">Nutritional Intelligence</h4>
+                                <ul class="text-slate-300 text-xs space-y-2 mb-3">
+                                    <li>• Connected image model outputs to FatSecret REST APIs to pull nutritional/carb data in under a second.</li>
+                                    <li>• Formatted backend API endpoints to send structured JSON payloads directly to the front end.</li>
+                                </ul>
+                            </div>
+                            <a href="https://github.com/teninator" target="_blank" class="w-full py-2 rounded-lg bg-purple-600 hover:bg-purple-500 text-white font-bold text-center text-xs">AI Backend Code <i class="fa-brands fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Rootstrike Infrastructure Node -->
+                <div class="project-card card-perspective" data-category="embedded-robotics" data-tags="c++ stm32 nucleo-f446re thermal firmware moving average filter uart telemetry">
+                    <div class="card-inner">
+                        <div class="card-front glass-panel border border-slate-800 p-6 flex flex-col justify-between hover:border-emerald-500/50 transition-all shadow-xl">
+                            <div>
+                                <div class="flex justify-between items-start mb-3">
+                                    <span class="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-lg"><i class="fa-solid fa-microchip"></i></span>
+                                    <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-800/60">Embedded Systems</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-white mb-2">Rootstrike Node</h3>
+                                <p class="text-slate-300 text-xs leading-relaxed mb-3">Thermal control firmware in C++ on an STM32 board (Nucleo-F446RE) keeping junction temperatures under 65°C.</p>
+                            </div>
+                            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
+                                <span class="text-[10px] font-mono text-slate-400">C++ • STM32 • UART</span>
+                                <span class="text-[11px] font-mono text-emerald-400">Hover/Tap <i class="fa-solid fa-rotate"></i></span>
+                            </div>
+                        </div>
+                        <div class="card-back glass-panel border border-emerald-500/40 p-6 flex flex-col justify-between bg-slate-900 shadow-2xl">
+                            <div>
+                                <h4 class="text-base font-bold text-emerald-400 mb-2">DSP & Telemetry</h4>
+                                <ul class="text-slate-300 text-xs space-y-2 mb-3">
+                                    <li>• Wrote a digital Moving Average Filter cutting analog signal noise by 35%.</li>
+                                    <li>• Created UART telemetry routines broadcasting real-time system metrics every 100ms.</li>
+                                </ul>
+                            </div>
+                            <a href="https://github.com/teninator" target="_blank" class="w-full py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-center text-xs">Firmware Source <i class="fa-brands fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. 3D Fish Boids Flocking Simulation -->
+                <div class="project-card card-perspective" data-category="cpp-graphics" data-tags="c++ opengl glsl reynolds boids flocking spatial partitioning vaporwave tessellation predator">
+                    <div class="card-inner">
+                        <div class="card-front glass-panel border border-slate-800 p-6 flex flex-col justify-between hover:border-cyan-500/50 transition-all shadow-xl">
+                            <div>
+                                <div class="flex justify-between items-start mb-3">
+                                    <span class="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-lg"><i class="fa-solid fa-fish"></i></span>
+                                    <span class="text-[10px] font-mono text-cyan-400 bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-800/60">3D Simulation</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-white mb-2">3D Fish Boids Engine</h3>
+                                <p class="text-slate-300 text-xs leading-relaxed mb-3">Craig Reynolds' flocking simulation (separation, alignment, cohesion) in C++ with predator pursuit and obstacle avoidance.</p>
+                            </div>
+                            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
+                                <span class="text-[10px] font-mono text-slate-400">C++ • OpenGL • GLSL</span>
+                                <span class="text-[11px] font-mono text-cyan-400">Hover/Tap <i class="fa-solid fa-rotate"></i></span>
+                            </div>
+                        </div>
+                        <div class="card-back glass-panel border border-cyan-500/40 p-6 flex flex-col justify-between bg-slate-900 shadow-2xl">
+                            <div>
+                                <h4 class="text-base font-bold text-cyan-400 mb-2">Optimization & Math</h4>
+                                <ul class="text-slate-300 text-xs space-y-2 mb-3">
+                                    <li>• Optimized distance checking from $O(n^2)$ to $O(n \log n)$ via 3D spatial grid partitioning.</li>
+                                    <li>• Tessellation shader pipeline supporting 10,000+ dynamic agent meshes at 60+ FPS.</li>
+                                </ul>
+                            </div>
+                            <a href="#interactive-demo" class="w-full py-2 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-center text-xs">Scroll to Live Demo <i class="fa-solid fa-play"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. FlipEngine 2.5D Custom Engine -->
+                <div class="project-card card-perspective" data-category="cpp-graphics" data-tags="c++ opengl glsl visual studio sprite batching cameras camera pipeline custom engine">
+                    <div class="card-inner">
+                        <div class="card-front glass-panel border border-slate-800 p-6 flex flex-col justify-between hover:border-amber-500/50 transition-all shadow-xl">
+                            <div>
+                                <div class="flex justify-between items-start mb-3">
+                                    <span class="p-2.5 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 text-lg"><i class="fa-solid fa-gamepad"></i></span>
+                                    <span class="text-[10px] font-mono text-amber-400 bg-amber-950/80 px-2 py-0.5 rounded border border-amber-800/60">Game Engine</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-white mb-2">FlipEngine (2.5D)</h3>
+                                <p class="text-slate-300 text-xs leading-relaxed mb-3">2.5D custom game engine built from scratch in C++ handling manual memory, sprite batching, and orthographic pipelines.</p>
+                            </div>
+                            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
+                                <span class="text-[10px] font-mono text-slate-400">C++ • OpenGL • GLSL</span>
+                                <span class="text-[11px] font-mono text-amber-400">Hover/Tap <i class="fa-solid fa-rotate"></i></span>
+                            </div>
+                        </div>
+                        <div class="card-back glass-panel border border-amber-500/40 p-6 flex flex-col justify-between bg-slate-900 shadow-2xl">
+                            <div>
+                                <h4 class="text-base font-bold text-amber-400 mb-2">Shader Passes & Rendering</h4>
+                                <ul class="text-slate-300 text-xs space-y-2 mb-3">
+                                    <li>• Integrated GLSL shader passes for dynamic lighting and pseudo-depth sorting.</li>
+                                    <li>• Custom camera pipelines blending 2D sprite planes seamlessly within 3D environments.</li>
+                                </ul>
+                            </div>
+                            <a href="https://github.com/teninator" target="_blank" class="w-full py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-center text-xs">Engine Code <i class="fa-brands fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Rubble Generator & Shader VFX -->
+                <div class="project-card card-perspective" data-category="tech-art" data-tags="unity c# glsl hlsl shaders procedural generation vfx tech art tools">
+                    <div class="card-inner">
+                        <div class="card-front glass-panel border border-slate-800 p-6 flex flex-col justify-between hover:border-cyan-400/50 transition-all shadow-xl">
+                            <div>
+                                <div class="flex justify-between items-start mb-3">
+                                    <span class="p-2.5 rounded-xl bg-cyan-400/10 text-cyan-400 border border-cyan-400/20 text-lg"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+                                    <span class="text-[10px] font-mono text-cyan-400 bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-800/60">Tech Art</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-white mb-2">Rubble Generator & VFX</h3>
+                                <p class="text-slate-300 text-xs leading-relaxed mb-3">Unity-based procedural tool for scattering debris using custom scripts along with custom GLSL/HLSL shader packs.</p>
+                            </div>
+                            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
+                                <span class="text-[10px] font-mono text-slate-400">Unity C# • GLSL • HLSL</span>
+                                <span class="text-[11px] font-mono text-cyan-400">Hover/Tap <i class="fa-solid fa-rotate"></i></span>
+                            </div>
+                        </div>
+                        <div class="card-back glass-panel border border-cyan-400/40 p-6 flex flex-col justify-between bg-slate-900 shadow-2xl">
+                            <div>
+                                <h4 class="text-base font-bold text-cyan-400 mb-2">Procedural Pipeline</h4>
+                                <ul class="text-slate-300 text-xs space-y-2 mb-3">
+                                    <li>• Created custom shaders for visual effects, vertex displacement, and material optimization.</li>
+                                    <li>• Developed toolsets recognized in the Ubisoft NEXT 2024 Technical Art competition.</li>
+                                </ul>
+                            </div>
+                            <a href="https://github.com/Teninator/Rubble-generator" target="_blank" class="w-full py-2 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-center text-xs">View Tool Repo <i class="fa-brands fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Demo Section (3D Fish Boids Engine) -->
+    <section id="interactive-demo" class="py-20 relative z-10 border-t border-slate-800/50 bg-slate-900/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <div class="inline-flex items-center gap-2 text-cyan-400 font-mono text-xs uppercase tracking-widest mb-2">
+                    <i class="fa-solid fa-vr-cardboard"></i> Real-Time Graphics Engine
+                </div>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">3D Fish Boids Simulation</h2>
+                <p class="text-slate-300 text-sm mt-3">
+                    WebGL & Three.js port of Teni's C++ Boids Engine with separation, alignment, cohesion, predator pursuit, and 2D cylinder obstacle collisions. Scroll over the viewport to zoom.
+                </p>
+            </div>
+
+            <div class="glass-panel p-6 rounded-3xl border border-slate-800 shadow-2xl space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-mono">
+                    <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800">
+                        <label class="block text-slate-400 mb-2">Boid Population: <span id="boid-count-val" class="text-cyan-400 font-bold">120</span></label>
+                        <input type="range" id="boid-count" min="20" max="250" value="120" class="w-full accent-cyan-400">
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800">
+                        <label class="block text-slate-400 mb-2">Shark Chase Speed: <span id="shark-speed-val" class="text-red-400 font-bold">16.0</span></label>
+                        <input type="range" id="shark-speed" min="5" max="30" value="16" class="w-full accent-red-400">
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between">
+                        <span class="text-slate-400">Coral Obstacles:</span>
+                        <button id="toggle-obstacles" class="px-4 py-2 rounded-lg bg-emerald-500 text-slate-950 font-bold">Active</button>
+                    </div>
+                </div>
+
+                <div class="relative w-full h-[500px] rounded-2xl overflow-hidden border border-slate-800 bg-slate-950" id="boid-canvas-container">
+                    <div class="absolute top-4 left-4 z-10 glass-panel px-3 py-1.5 rounded-lg text-[11px] font-mono text-cyan-400 border border-cyan-500/30">
+                        <i class="fa-solid fa-circle text-[8px] animate-pulse"></i> WebGL Active • Scroll to Zoom
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-10 border-t border-slate-800/80 bg-slate-950 text-xs text-slate-400 text-center">
+        <p>© 2026 Oluwateniola "Teni" Adegbite • <a href="../" class="text-cyan-400 hover:underline">Home</a> • <a href="../ocr/" class="text-emerald-400 hover:underline">Toxin OCR Tool</a></p>
+    </footer>
+
+    <script>
+        // Filter & Search Logic
+        const searchInput = document.getElementById('project-search');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        function filterProjects() {
+            const query = searchInput ? searchInput.value.toLowerCase() : '';
+            const activeFilterBtn = document.querySelector('.filter-btn.active');
+            const activeFilter = activeFilterBtn ? activeFilterBtn.dataset.filter : 'all';
+
+            projectCards.forEach(card => {
+                const category = card.dataset.category;
+                const tags = card.dataset.tags.toLowerCase();
+                const cardText = card.innerText.toLowerCase();
+
+                const matchesCategory = (activeFilter === 'all' || category === activeFilter);
+                const matchesQuery = (!query || tags.includes(query) || cardText.includes(query));
+
+                card.style.display = (matchesCategory && matchesQuery) ? 'block' : 'none';
+            });
+        }
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('active', 'bg-gradient-to-r', 'from-cyan-400', 'to-blue-600', 'text-slate-950');
+                    b.classList.add('glass-panel', 'text-slate-300');
+                });
+                btn.classList.add('active', 'bg-gradient-to-r', 'from-cyan-400', 'to-blue-600', 'text-slate-950');
+                btn.classList.remove('glass-panel', 'text-slate-300');
+                filterProjects();
+            });
+        });
+
+        if (searchInput) searchInput.addEventListener('input', filterProjects);
+
+        // Three.js Zoomed-Out Boid & Collision Simulation
+        const boidContainer = document.getElementById('boid-canvas-container');
+        if (boidContainer) {
+            const scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x070a12, 0.005);
+
+            const camera = new THREE.PerspectiveCamera(50, boidContainer.clientWidth / boidContainer.clientHeight, 0.1, 2000);
+            camera.position.set(0, 160, 260);
+            camera.lookAt(0, 0, 0);
+
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(boidContainer.clientWidth, boidContainer.clientHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            boidContainer.appendChild(renderer.domElement);
+
+            boidContainer.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                camera.position.z += e.deltaY * 0.15;
+                camera.position.z = Math.max(100, Math.min(500, camera.position.z));
+            }, { passive: false });
+
+            scene.add(new THREE.AmbientLight(0x404060, 2.5));
+            const dirLight = new THREE.DirectionalLight(0x00f2fe, 1.8);
+            dirLight.position.set(50, 150, 50);
+            scene.add(dirLight);
+
+            const coralPositions = [
+                new THREE.Vector3(40, 0, 40),
+                new THREE.Vector3(-40, 10, -30),
+                new THREE.Vector3(0, -20, -60)
+            ];
+
+            const coralMeshes = [];
+            const coralMat = new THREE.MeshStandardMaterial({ color: 0x009999, roughness: 0.3, metalness: 0.1 });
+
+            function initCorals(geom) {
+                coralPositions.forEach(pos => {
+                    const coral = new THREE.Mesh(geom, coralMat);
+                    coral.position.copy(pos);
+                    coral.scale.set(12, 12, 12);
+                    scene.add(coral);
+                    coralMeshes.push(coral);
+                });
+            }
+
+            const objLoader = new THREE.OBJLoader();
+            objLoader.load(
+                '../assets/models/Sphere.obj',
+                (obj) => {
+                    let sphereGeom = null;
+                    obj.traverse((child) => { if (child.isMesh && !sphereGeom) sphereGeom = child.geometry; });
+                    initCorals(sphereGeom || new THREE.SphereGeometry(1, 16, 16));
+                },
+                undefined,
+                () => initCorals(new THREE.SphereGeometry(1, 16, 16))
+            );
+
+            let numBoids = 120;
+            let sharkChaseSpeed = 0.95;
+            const boidArray = [];
+
+            class BoidAgent {
+                constructor() {
+                    this.position = new THREE.Vector3((Math.random() - 0.5) * 180, (Math.random() - 0.5) * 40, (Math.random() - 0.5) * 180);
+                    this.velocity = new THREE.Vector3((Math.random() - 0.5) * 4, (Math.random() - 0.5) * 0.5, (Math.random() - 0.5) * 4);
+                    this.acceleration = new THREE.Vector3();
+                    this.maxSpeed = 1.2;
+                    this.maxForce = 0.05;
+                }
+
+                update(sharkPos, obstaclesActive) {
+                    const coralRadius = 16.0;
+                    const detectionBuffer = 26.0;
+
+                    if (obstaclesActive) {
+                        coralPositions.forEach(cPos => {
+                            let fish2D = new THREE.Vector2(this.position.x, this.position.z);
+                            let obs2D = new THREE.Vector2(cPos.x, cPos.z);
+                            let dist = fish2D.distanceTo(obs2D);
+
+                            if (dist < coralRadius) {
+                                let escapeDir = new THREE.Vector2().subVectors(fish2D, obs2D).normalize();
+                                let newPos2D = obs2D.clone().add(escapeDir.multiplyScalar(coralRadius + 0.2));
+                                this.position.x = newPos2D.x;
+                                this.position.z = newPos2D.y;
+
+                                let vel2D = new THREE.Vector2(this.velocity.x, this.velocity.z);
+                                let reflected = vel2D.reflect(escapeDir);
+                                this.velocity.x = reflected.x * 0.5;
+                                this.velocity.z = reflected.y * 0.5;
+                            } else if (dist < detectionBuffer) {
+                                let steerDir = new THREE.Vector2().subVectors(fish2D, obs2D).normalize();
+                                let strength = (detectionBuffer - dist) / detectionBuffer;
+                                this.applyForce(new THREE.Vector3(steerDir.x * strength * 0.2, 0, steerDir.y * strength * 0.2));
+                            }
+                        });
+                    }
+
+                    if (sharkPos) {
+                        let dToShark = this.position.distanceTo(sharkPos);
+                        if (dToShark < 45) {
+                            let flee = new THREE.Vector3().subVectors(this.position, sharkPos).normalize();
+                            this.applyForce(flee.multiplyScalar(0.35));
+                        }
+                    }
+
+                    this.velocity.add(this.acceleration);
+                    this.velocity.clampLength(0, this.maxSpeed);
+                    this.position.add(this.velocity);
+                    this.acceleration.set(0, 0, 0);
+
+                    if (this.position.length() > 120) {
+                        this.velocity.add(this.position.clone().negate().normalize().multiplyScalar(0.08));
+                    }
+                }
+
+                applyForce(force) { this.acceleration.add(force); }
+
+                flock(boids) {
+                    let sep = new THREE.Vector3(), ali = new THREE.Vector3(), coh = new THREE.Vector3();
+                    let count = 0;
+
+                    for (let other of boids) {
+                        let d = this.position.distanceTo(other.position);
+                        if (d > 0 && d < 18) {
+                            sep.add(new THREE.Vector3().subVectors(this.position, other.position).divideScalar(d));
+                            ali.add(other.velocity);
+                            coh.add(other.position);
+                            count++;
+                        }
+                    }
+
+                    if (count > 0) {
+                        sep.divideScalar(count).normalize().multiplyScalar(this.maxSpeed).sub(this.velocity).clampLength(0, this.maxForce * 1.6);
+                        ali.divideScalar(count).normalize().multiplyScalar(this.maxSpeed).sub(this.velocity).clampLength(0, this.maxForce);
+                        coh.divideScalar(count).sub(this.position).normalize().multiplyScalar(this.maxSpeed).sub(this.velocity).clampLength(0, this.maxForce);
+                        
+                        this.applyForce(sep.multiplyScalar(3.5));
+                        this.applyForce(ali.multiplyScalar(1.0));
+                        this.applyForce(coh.multiplyScalar(0.2));
+                    }
+                }
+            }
+
+            for (let i = 0; i < 250; i++) boidArray.push(new BoidAgent());
+
+            let fishInstancedMesh;
+            const dummy = new THREE.Object3D();
+
+            function createSmallFishGeometry() {
+                const geom = new THREE.ConeGeometry(0.35, 1.2, 4);
+                geom.rotateX(Math.PI / 2);
+                return geom;
+            }
+
+            function initFishMesh(geometry) {
+                const material = new THREE.MeshStandardMaterial({ color: 0xba9ffb, roughness: 0.3, metalness: 0.2 });
+                fishInstancedMesh = new THREE.InstancedMesh(geometry, material, 250);
+                scene.add(fishInstancedMesh);
+            }
+
+            objLoader.load(
+                '../assets/models/Fish.obj',
+                (obj) => {
+                    let loadedGeom = null;
+                    obj.traverse((child) => { if (child.isMesh && !loadedGeom) loadedGeom = child.geometry; });
+                    initFishMesh(loadedGeom || createSmallFishGeometry());
+                },
+                undefined,
+                () => initFishMesh(createSmallFishGeometry())
+            );
+
+            let sharkMesh;
+            const sharkMat = new THREE.MeshStandardMaterial({ color: 0xd92626, roughness: 0.2, metalness: 0.3 });
+
+            function initShark(geometry) {
+                sharkMesh = new THREE.Mesh(geometry, sharkMat);
+                sharkMesh.position.set(-60, 0, -40);
+                scene.add(sharkMesh);
+            }
+
+            function createFallbackSharkGeometry() {
+                const geom = new THREE.ConeGeometry(2.0, 6.0, 5);
+                geom.rotateX(Math.PI / 2);
+                return geom;
+            }
+
+            objLoader.load(
+                '../assets/models/Shark.obj',
+                (obj) => {
+                    let sharkGeom = null;
+                    obj.traverse((child) => { if (child.isMesh && !sharkGeom) sharkGeom = child.geometry; });
+                    initShark(sharkGeom || createFallbackSharkGeometry());
+                },
+                undefined,
+                () => initShark(createFallbackSharkGeometry())
+            );
+
+            const boidSlider = document.getElementById('boid-count');
+            const boidVal = document.getElementById('boid-count-val');
+            if (boidSlider && boidVal) {
+                boidSlider.addEventListener('input', (e) => {
+                    numBoids = parseInt(e.target.value);
+                    boidVal.innerText = numBoids;
+                });
+            }
+
+            const sharkSlider = document.getElementById('shark-speed');
+            const sharkVal = document.getElementById('shark-speed-val');
+            if (sharkSlider && sharkVal) {
+                sharkSlider.addEventListener('input', (e) => {
+                    const raw = parseFloat(e.target.value);
+                    sharkVal.innerText = raw.toFixed(1);
+                    sharkChaseSpeed = raw / 16.0;
+                });
+            }
+
+            const toggleBtn = document.getElementById('toggle-obstacles');
+            let obstaclesActive = true;
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', () => {
+                    obstaclesActive = !obstaclesActive;
+                    coralMeshes.forEach(m => m.visible = obstaclesActive);
+                    toggleBtn.innerText = obstaclesActive ? 'Active' : 'Hidden';
+                    toggleBtn.className = obstaclesActive ? 'px-4 py-2 rounded-lg bg-emerald-500 text-slate-950 font-bold' : 'px-4 py-2 rounded-lg bg-slate-800 text-slate-400 font-bold';
+                });
+            }
+
+            let sharkVelocity = new THREE.Vector3(0, 0, 1);
+            let sharkTargetIdx = -1;
+            let sharkTargetTimer = 0;
+
+            function animateBoids() {
+                requestAnimationFrame(animateBoids);
+
+                if (sharkMesh) {
+                    sharkTargetTimer -= 0.016;
+                    if (sharkTargetIdx === -1 || sharkTargetIdx >= numBoids || sharkTargetTimer <= 0) {
+                        let minD = 9999;
+                        for (let i = 0; i < numBoids; i++) {
+                            let d = sharkMesh.position.distanceTo(boidArray[i].position);
+                            if (d < minD) { minD = d; sharkTargetIdx = i; }
+                        }
+                        sharkTargetTimer = 4.0;
+                    }
+
+                    if (boidArray[sharkTargetIdx]) {
+                        let desiredDir = new THREE.Vector3().subVectors(boidArray[sharkTargetIdx].position, sharkMesh.position).normalize();
+                        sharkVelocity.lerp(desiredDir, 0.04).normalize();
+                        sharkMesh.position.addScaledVector(sharkVelocity, sharkChaseSpeed);
+
+                        if (obstaclesActive) {
+                            coralPositions.forEach(cPos => {
+                                let shark2D = new THREE.Vector2(sharkMesh.position.x, sharkMesh.position.z);
+                                let obs2D = new THREE.Vector2(cPos.x, cPos.z);
+                                let dist = shark2D.distanceTo(obs2D);
+                                let sharkRadius = 20.0;
+
+                                if (dist < sharkRadius) {
+                                    let push = new THREE.Vector2().subVectors(shark2D, obs2D).normalize();
+                                    let snapped = obs2D.clone().add(push.multiplyScalar(sharkRadius + 0.5));
+                                    sharkMesh.position.x = snapped.x;
+                                    sharkMesh.position.z = snapped.y;
+                                }
+                            });
+                        }
+                        sharkMesh.lookAt(new THREE.Vector3().addVectors(sharkMesh.position, sharkVelocity));
+                    }
+                }
+
+                let sharkPos = sharkMesh ? sharkMesh.position : null;
+                for (let i = 0; i < numBoids; i++) {
+                    boidArray[i].flock(boidArray.slice(0, numBoids));
+                    boidArray[i].update(sharkPos, obstaclesActive);
+
+                    if (fishInstancedMesh) {
+                        dummy.position.copy(boidArray[i].position);
+                        dummy.lookAt(new THREE.Vector3().addVectors(boidArray[i].position, boidArray[i].velocity));
+                        dummy.scale.set(0.12, 0.12, 0.12);
+                        dummy.updateMatrix();
+                        fishInstancedMesh.setMatrixAt(i, dummy.matrix);
+                    }
+                }
+
+                if (fishInstancedMesh) {
+                    fishInstancedMesh.count = numBoids;
+                    fishInstancedMesh.instanceMatrix.needsUpdate = true;
+                }
+
+                renderer.render(scene, camera);
+            }
+
+            animateBoids();
+
+            window.addEventListener('resize', () => {
+                camera.aspect = boidContainer.clientWidth / boidContainer.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(boidContainer.clientWidth, boidContainer.clientHeight);
+            });
+        }
+    </script>
+</body>
+</html>
