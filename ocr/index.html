@@ -82,17 +82,49 @@
     <main class="pt-28 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <!-- Header -->
-        <div class="max-w-3xl mb-10 space-y-3">
+        <div class="max-w-3xl mb-8 space-y-3">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel border border-emerald-500/30 text-emerald-400 text-xs font-mono">
                 <i class="fa-solid fa-shield-halved"></i>
-                <span>100% Client-Side WebAssembly OCR • Zero Server Uploads</span>
+                <span>100% Client-Side WebAssembly OCR • Personalized Health Screening</span>
             </div>
             <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
                 Ingredient & <span class="text-gradient-emerald">Toxin Scanner</span>
             </h1>
             <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
-                Upload, drag-and-drop, paste (<kbd class="px-1.5 py-0.5 bg-slate-800 rounded text-xs font-mono">Ctrl+V</kbd>), or snap a photo of any <strong class="text-white">food label, cosmetic, or skincare bottle</strong>. The in-browser computer vision pipeline enhances contrast, extracts ingredients via Tesseract WASM, and flags known carcinogens, endocrine disruptors, and harmful additives.
+                Upload, drag-and-drop, paste (<kbd class="px-1.5 py-0.5 bg-slate-800 rounded text-xs font-mono">Ctrl+V</kbd>), or snap a photo of any <strong class="text-white">food label or cosmetic product</strong>. Select your health profiles below to tailor warnings for glycemic triggers, allergens, sodium, or carcinogens.
             </p>
+        </div>
+
+        <!-- Personalized Health Profile Filter Bar -->
+        <div class="glass-panel p-5 rounded-2xl border border-slate-800 mb-8 space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+                <span class="text-xs font-mono font-bold uppercase tracking-wider text-cyan-400 flex items-center gap-2">
+                    <i class="fa-solid fa-heart-pulse"></i> Select Your Health & Dietary Filters (Multi-Select)
+                </span>
+                <button type="button" id="reset-profiles-btn" class="text-[11px] font-mono text-slate-400 hover:text-white underline">
+                    Reset to Default
+                </button>
+            </div>
+            <div class="flex flex-wrap gap-2.5" id="health-profile-container">
+                <button type="button" data-profile="toxins" class="profile-pill active px-3.5 py-2 rounded-xl text-xs font-mono font-semibold border transition-all flex items-center gap-2 bg-emerald-500/20 border-emerald-400 text-emerald-300">
+                    <i class="fa-solid fa-biohazard"></i> Carcinogens & Toxins
+                </button>
+                <button type="button" data-profile="diabetes" class="profile-pill px-3.5 py-2 rounded-xl text-xs font-mono font-semibold border transition-all flex items-center gap-2 bg-slate-900/90 border-slate-700 text-slate-300 hover:border-slate-500">
+                    <i class="fa-solid fa-droplet"></i> Diabetes / Glycemic Control
+                </button>
+                <button type="button" data-profile="celiac" class="profile-pill px-3.5 py-2 rounded-xl text-xs font-mono font-semibold border transition-all flex items-center gap-2 bg-slate-900/90 border-slate-700 text-slate-300 hover:border-slate-500">
+                    <i class="fa-solid fa-wheat-awn-circle-exclamation"></i> Celiac / Gluten-Free
+                </button>
+                <button type="button" data-profile="hypertension" class="profile-pill px-3.5 py-2 rounded-xl text-xs font-mono font-semibold border transition-all flex items-center gap-2 bg-slate-900/90 border-slate-700 text-slate-300 hover:border-slate-500">
+                    <i class="fa-solid fa-heart-crack"></i> Hypertension / Low-Sodium
+                </button>
+                <button type="button" data-profile="sensitive-skin" class="profile-pill px-3.5 py-2 rounded-xl text-xs font-mono font-semibold border transition-all flex items-center gap-2 bg-slate-900/90 border-slate-700 text-slate-300 hover:border-slate-500">
+                    <i class="fa-solid fa-hand-sparkles"></i> Sensitive Skin / Eczema
+                </button>
+                <button type="button" data-profile="pregnancy" class="profile-pill px-3.5 py-2 rounded-xl text-xs font-mono font-semibold border transition-all flex items-center gap-2 bg-slate-900/90 border-slate-700 text-slate-300 hover:border-slate-500">
+                    <i class="fa-solid fa-person-pregnant"></i> Pregnancy / Hormone Safe
+                </button>
+            </div>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -203,7 +235,7 @@
                     <div>
                         <div class="flex items-center justify-between pb-4 border-b border-slate-800 mb-5">
                             <h2 class="text-sm font-bold text-white uppercase tracking-wider font-mono flex items-center gap-2">
-                                <i class="fa-solid fa-triangle-exclamation text-amber-400"></i> 3. Toxicology & Hazard Report
+                                <i class="fa-solid fa-triangle-exclamation text-amber-400"></i> 3. Personalized Health & Hazard Report
                             </h2>
                             <span id="hazard-summary-badge" class="text-xs font-mono px-3 py-1 rounded-full bg-slate-900 border border-slate-700 text-slate-400">
                                 Awaiting Scan
@@ -216,14 +248,14 @@
                                 <i class="fa-solid fa-microscope text-4xl text-slate-600"></i>
                                 <p class="text-sm font-medium text-slate-300">No ingredients scanned yet</p>
                                 <p class="text-xs max-w-md mx-auto leading-relaxed">
-                                    Upload a product label on the left or click <strong class="text-cyan-400">Test Food Label</strong> / <strong class="text-purple-400">Test Cosmetic Label</strong> to see real-time carcinogen and chemical analysis.
+                                    Select your health conditions above, then upload a label or click <strong class="text-cyan-400">Test Food Label</strong> / <strong class="text-purple-400">Test Cosmetic Label</strong>.
                                 </p>
                             </div>
                         </div>
                     </div>
 
                     <div class="mt-8 pt-4 border-t border-slate-800/80 text-[11px] text-slate-500 leading-relaxed">
-                        <strong>Disclaimer:</strong> Built by Teni Adegbite for educational & informational screening using IARC, FDA, and EU cosmetic ingredient classifications. Not medical advice.
+                        <strong>Disclaimer:</strong> Built by Teni Adegbite for educational & informational screening using IARC, FDA, Glycemic Index, and EU cosmetic ingredient classifications. Not medical advice.
                     </div>
                 </div>
             </div>
@@ -232,113 +264,256 @@
     </main>
 
     <script>
-        // --- 1. Toxicology & Carcinogen Knowledge Base (Food + Cosmetics/Makeup) ---
+        // --- 1. Personalized Health & Toxicology Knowledge Base ---
         const CHEMICAL_DATABASE = [
+            // === DIABETES / GLYCEMIC TRIGGERS ===
+            {
+                name: "High-Fructose Corn Syrup (HFCS) / Glucose-Fructose",
+                aliases: ["high fructose corn syrup", "high-fructose corn syrup", "hfcs", "glucose-fructose", "corn syrup"],
+                profiles: ["diabetes", "toxins"],
+                severity: "HIGH",
+                tag: "Rapid Blood Glucose Spike & Insulin Resistance",
+                category: "Refined Sugar & Sweetener",
+                effects: "Causes rapid postprandial blood glucose surges and hepatic lipogenesis, driving insulin resistance and fatty liver progression in diabetic and pre-diabetic individuals."
+            },
+            {
+                name: "Maltodextrin",
+                aliases: ["maltodextrin", "modified corn starch", "modified food starch"],
+                profiles: ["diabetes"],
+                severity: "HIGH",
+                tag: "Ultra-High Glycemic Index (GI: 85–105)",
+                category: "Hidden Starch / Thickener",
+                effects: "Despite often being labeled 'sugar-free', maltodextrin has a higher glycemic index than pure table sugar (glucose = 100), triggering sharp blood sugar and insulin spikes."
+            },
+            {
+                name: "Refined Sugars (Sucrose / Dextrose / Cane Sugar / Maltose)",
+                aliases: ["sugar", "cane sugar", "dextrose", "sucrose", "maltose", "invert sugar", "brown rice syrup", "agave nectar", "honey", "molasses"],
+                profiles: ["diabetes"],
+                severity: "HIGH",
+                tag: "Direct Blood Glucose Elevator",
+                category: "Added Sugars",
+                effects: "Rapidly absorbed simple carbohydrates that elevate blood glucose levels and require insulin response. Monitor total carbohydrate load closely."
+            },
+            {
+                name: "Acesulfame Potassium / Aspartame / Sucralose",
+                aliases: ["acesulfame potassium", "acesulfame k", "aspartame", "sucralose", "e950", "e951", "e955"],
+                profiles: ["diabetes", "toxins"],
+                severity: "MODERATE",
+                tag: "Gut Microbiome & Insulin Response Watchlist",
+                category: "Artificial Non-Nutritive Sweeteners",
+                effects: "Aspartame is classified as IARC Group 2B. Clinical studies show artificial sweeteners can alter gut microbiota and impair glycemic tolerance in insulin-resistant individuals."
+            },
+
+            // === CELIAC / GLUTEN-FREE ===
+            {
+                name: "Wheat Flour / Gluten Proteins",
+                aliases: ["wheat flour", "enriched wheat flour", "whole wheat", "wheat", "gluten", "vital wheat gluten", "durum", "semolina", "spelt", "farro"],
+                profiles: ["celiac"],
+                severity: "HIGH",
+                tag: "Contains Gluten • Celiac Autoimmune Trigger",
+                category: "Grain & Flour Ingredient",
+                effects: "Triggers autoimmune villous atrophy in the small intestine for individuals with Celiac disease, causing malabsorption, inflammation, and gastrointestinal distress."
+            },
+            {
+                name: "Barley / Rye / Malt Extract",
+                aliases: ["barley", "rye", "malt", "malt extract", "malt flavoring", "brewer's yeast"],
+                profiles: ["celiac"],
+                severity: "HIGH",
+                tag: "Hidden Gluten Source (Hordein / Secalin)",
+                category: "Grain & Flavoring",
+                effects: "Contains hordeins (barley) and secalins (rye), gluten proteins toxic to Celiac patients. Often hidden in cereals, sauces, and 'natural flavorings'."
+            },
+
+            // === HYPERTENSION / LOW-SODIUM ===
+            {
+                name: "Monosodium Glutamate (MSG) & Disodium Inosinate",
+                aliases: ["monosodium glutamate", "msg", "disodium inosinate", "disodium guanylate", "e621", "hydrolyzed vegetable protein"],
+                profiles: ["hypertension"],
+                severity: "MODERATE",
+                tag: "Hidden Sodium & Blood Pressure Trigger",
+                category: "Flavor Enhancer",
+                effects: "Contributes to total dietary sodium load and can trigger headaches, flushing, and blood pressure elevation in sodium-sensitive individuals."
+            },
+            {
+                name: "Sodium Benzoate / Sodium Phosphate / Sodium Chloride",
+                aliases: ["sodium benzoate", "sodium phosphate", "trisodium phosphate", "sodium chloride", "salt", "e211"],
+                profiles: ["hypertension", "toxins"],
+                severity: "MODERATE",
+                tag: "High-Sodium Additive • Vascular Load",
+                category: "Preservative & Salt Additive",
+                effects: "Increases extracellular fluid volume and arterial blood pressure. Additionally, sodium benzoate combined with Vitamin C (ascorbic acid) can form trace benzene."
+            },
+
+            // === CARCINOGENS, TOXINS, PREGNANCY & SENSITIVE SKIN ===
             {
                 name: "BHA (Butylated Hydroxyanisole)",
                 aliases: ["bha", "butylated hydroxyanisole", "e320"],
+                profiles: ["toxins", "pregnancy"],
                 severity: "HIGH",
                 tag: "Possible Human Carcinogen (IARC Group 2B)",
                 category: "Food & Makeup Preservative",
-                effects: "Classified by the International Agency for Research on Cancer (IARC) as possibly carcinogenic to humans. Linked to stomach tumors in animal studies and endocrine (hormone) disruption when ingested or absorbed."
+                effects: "Classified by IARC as possibly carcinogenic to humans. Linked to stomach tumors in animal studies and endocrine (hormone) disruption."
             },
             {
                 name: "BHT (Butylated Hydroxytoluene)",
                 aliases: ["bht", "butylated hydroxytoluene", "e321"],
+                profiles: ["toxins", "pregnancy"],
                 severity: "MODERATE",
                 tag: "Endocrine & Organ Toxicity Concern",
                 category: "Food & Cosmetic Antioxidant",
-                effects: "Repeated ingestion is associated with liver, thyroid, and kidney enlargement in animal toxicology studies, as well as potential estrogen-mimicking endocrine interference."
+                effects: "Repeated ingestion is associated with liver, thyroid, and kidney enlargement in toxicology studies, as well as potential estrogen-mimicking interference."
             },
             {
                 name: "Red 40 (Allura Red AC)",
                 aliases: ["red 40", "allura red", "fd&c red no. 40", "e129", "ci 16035"],
+                profiles: ["toxins"],
                 severity: "MODERATE",
                 tag: "Synthetic Petroleum Dye • Gut & Behavioral Impact",
                 category: "Food & Lip Cosmetic Dye",
-                effects: "Derived from petroleum distillates. Studies link consumption to hyperactivity/neurobehavioral sensitivity in children, gut microbiome inflammation, and trace contamination with benzidine (a known carcinogen)."
+                effects: "Derived from petroleum distillates. Linked to neurobehavioral sensitivity in children, gut inflammation, and trace benzidine contamination."
             },
             {
                 name: "Titanium Dioxide",
                 aliases: ["titanium dioxide", "e171", "ci 77891"],
+                profiles: ["toxins"],
                 severity: "HIGH",
                 tag: "Banned in EU Food • Genotoxicity Concern",
                 category: "Food Whitener & Makeup Pigment",
-                effects: "Banned as a food additive in the European Union (EFSA) because ingested nanoparticles can accumulate in organs and cause DNA strand breaks (genotoxicity). Safe in non-spray sunscreens, risky when ingested or inhaled."
+                effects: "Banned as a food additive in the EU (EFSA) because ingested nanoparticles can accumulate in organs and cause DNA strand breaks (genotoxicity)."
             },
             {
                 name: "Sodium Nitrite / Nitrate",
                 aliases: ["sodium nitrite", "sodium nitrate", "potassium nitrite", "e250", "e251"],
+                profiles: ["toxins", "hypertension", "pregnancy"],
                 severity: "HIGH",
-                tag: "Forms Carcinogenic Nitrosamines",
+                tag: "Forms Carcinogenic Nitrosamines + High Sodium",
                 category: "Processed Meat Preservative",
-                effects: "When ingested with proteins or exposed to high heat, nitrites form N-nitroso compounds (nitrosamines), which are strongly linked to colorectal and stomach cancers (IARC Group 2A)."
+                effects: "Forms carcinogenic nitrosamines (IARC Group 2A) linked to colorectal cancer, while also increasing dietary sodium load."
             },
             {
                 name: "Potassium Bromate",
                 aliases: ["potassium bromate", "bromated flour", "e924"],
+                profiles: ["toxins", "pregnancy"],
                 severity: "HIGH",
                 tag: "Probable Carcinogen (IARC Group 2B)",
                 category: "Baked Goods Flour Improver",
-                effects: "Banned in Canada, the EU, and the UK. Causes renal (kidney) and thyroid tumors in animal testing and induces oxidative DNA damage if residual bromate remains after baking."
+                effects: "Banned in Canada, the EU, and the UK. Causes kidney and thyroid tumors in animal testing and induces oxidative DNA damage."
             },
             {
                 name: "Propylparaben / Methylparaben",
                 aliases: ["propylparaben", "methylparaben", "butylparaben", "ethylparaben", "paraben"],
+                profiles: ["toxins", "pregnancy"],
                 severity: "HIGH",
-                tag: "Endocrine Disruptor",
+                tag: "Endocrine & Hormone Disruptor",
                 category: "Makeup, Skincare & Food Preservative",
-                effects: "Mimics estrogen in the body, disrupting hormone signaling, fertility markers, and thyroid function. Detected in human breast tissue samples."
+                effects: "Mimics estrogen in the body, disrupting hormone signaling, fertility markers, and fetal endocrine development."
             },
             {
                 name: "Formaldehyde Releasers (DMDM Hydantoin / Quaternium-15)",
                 aliases: ["dmdm hydantoin", "quaternium-15", "imidazolidinyl urea", "diazolidinyl urea", "formaldehyde"],
+                profiles: ["toxins", "sensitive-skin", "pregnancy"],
                 severity: "HIGH",
-                tag: "Known Human Carcinogen (IARC Group 1)",
+                tag: "Known Human Carcinogen (IARC Group 1) & Allergen",
                 category: "Cosmetics, Hair & Nail Products",
-                effects: "Slowly releases formaldehyde gas over time to prevent bacterial growth. Formaldehyde is a Group 1 human carcinogen linked to nasopharyngeal cancer, leukemia, and severe allergic contact dermatitis."
+                effects: "Slowly releases formaldehyde gas (Group 1 human carcinogen) and is one of the most common triggers for severe allergic contact dermatitis and eczema flares."
             },
             {
                 name: "PFAS / PTFE (Teflon)",
                 aliases: ["ptfe", "polytetrafluoroethylene", "perfluorooctyl", "polyperfluoromethylisopropyl ether", "pfas"],
+                profiles: ["toxins", "pregnancy"],
                 severity: "HIGH",
                 tag: "Forever Chemical • Bioaccumulates",
                 category: "Waterproof Makeup & Packaging",
-                effects: "Persistent fluorochemicals that do not break down in the body. Associated with kidney/testicular cancer, suppressed immune response, liver enzyme elevation, and developmental toxicity."
+                effects: "Persistent fluorochemicals linked to kidney/testicular cancer, suppressed immune response, and developmental toxicity during pregnancy."
             },
             {
-                name: "Phthalates (DBP / DEP / Fragrance)",
+                name: "Phthalates / Synthetic Fragrance (Parfum)",
                 aliases: ["dibutyl phthalate", "diethyl phthalate", "phthalate", "parfum", "fragrance"],
+                profiles: ["toxins", "sensitive-skin", "pregnancy"],
                 severity: "MODERATE",
-                tag: "Reproductive & Hormone Disruptor",
+                tag: "Hormone Disruptor & Skin Sensitizer",
                 category: "Perfumes, Nail Polish & Lotions",
-                effects: "Often hidden under generic 'Fragrance/Parfum' labels. Linked to anti-androgenic effects, lowered testosterone, reproductive toxicity, and insulin resistance."
+                effects: "Undisclosed fragrance blends frequently contain phthalates (anti-androgenic hormone disruptors) and volatile allergens that trigger eczema and contact dermatitis."
             },
             {
-                name: "Sodium Lauryl Sulfate (SLS)",
+                name: "Sodium Lauryl Sulfate (SLS / SLES)",
                 aliases: ["sodium lauryl sulfate", "sls", "sodium laureth sulfate", "sles"],
-                severity: "LOW",
-                tag: "Skin Barrier Irritant • Potential 1,4-Dioxane",
+                profiles: ["sensitive-skin"],
+                severity: "MODERATE",
+                tag: "Skin Barrier Stripper & Eczema Irritant",
                 category: "Cleansers, Toothpaste & Shampoos",
-                effects: "Strips natural skin lipids causing mucosal and dermal irritation (canker sores in toothpaste). Ethoxylated SLES can carry trace 1,4-dioxane, a probable carcinogen."
+                effects: "Harsh anionic surfactant that strips natural skin lipids, increases transepidermal water loss, and triggers eczema/rosacea flare-ups."
             },
             {
-                name: "Acesulfame Potassium / Aspartame",
-                aliases: ["acesulfame potassium", "acesulfame k", "aspartame", "e950", "e951"],
-                severity: "LOW",
-                tag: "Artificial Sweetener Watchlist",
-                category: "Diet Foods & Beverages",
-                effects: "Aspartame is classified as IARC Group 2B (limited evidence). Both sweeteners can alter gut microbiota glucose tolerance in sensitive individuals."
+                name: "Retinol / Retinyl Palmitate / Salicylic Acid",
+                aliases: ["retinol", "retinyl palmitate", "retinoic acid", "tretinoin", "adapalene", "salicylic acid"],
+                profiles: ["pregnancy", "sensitive-skin"],
+                severity: "HIGH",
+                tag: "Pregnancy Teratogen Watchlist & Skin Peeling",
+                category: "Anti-Aging & Acne Skincare",
+                effects: "Topical retinoids are contraindicated during pregnancy due to vitamin A teratogenicity risks, and high-strength acids can compromise sensitive skin barriers."
             },
             {
                 name: "Talc",
                 aliases: ["talc", "magnesium silicate"],
+                profiles: ["toxins", "sensitive-skin"],
                 severity: "MODERATE",
                 tag: "Asbestos Cross-Contamination Risk",
                 category: "Pressed Powders, Blush & Eyeshadow",
                 effects: "Natural talc deposits frequently occur alongside asbestos fibers. Unpurified cosmetic talc poses inhalation and ovarian inflammation risks."
             }
         ];
+
+        // --- Active Health Profiles State ---
+        const PROFILE_LABELS = {
+            "toxins": "Carcinogens & Toxins",
+            "diabetes": "Diabetes / Glycemic",
+            "celiac": "Celiac / Gluten-Free",
+            "hypertension": "Low-Sodium",
+            "sensitive-skin": "Sensitive Skin",
+            "pregnancy": "Pregnancy Safe"
+        };
+
+        let activeProfiles = new Set(["toxins"]);
+
+        const profilePills = document.querySelectorAll('.profile-pill');
+        profilePills.forEach(pill => {
+            pill.addEventListener('click', () => {
+                const profile = pill.dataset.profile;
+                if (activeProfiles.has(profile)) {
+                    // Keep at least one profile active
+                    if (activeProfiles.size > 1) {
+                        activeProfiles.delete(profile);
+                        pill.classList.remove('active', 'bg-emerald-500/20', 'border-emerald-400', 'text-emerald-300');
+                        pill.classList.add('bg-slate-900/90', 'border-slate-700', 'text-slate-300');
+                    }
+                } else {
+                    activeProfiles.add(profile);
+                    pill.classList.add('active', 'bg-emerald-500/20', 'border-emerald-400', 'text-emerald-300');
+                    pill.classList.remove('bg-slate-900/90', 'border-slate-700', 'text-slate-300');
+                }
+                // Re-analyze immediately if text is already present
+                if (extractedTextarea.value.trim().length > 0) {
+                    analyzeIngredients(extractedTextarea.value);
+                }
+            });
+        });
+
+        document.getElementById('reset-profiles-btn').addEventListener('click', () => {
+            activeProfiles = new Set(["toxins"]);
+            profilePills.forEach(pill => {
+                if (pill.dataset.profile === "toxins") {
+                    pill.classList.add('active', 'bg-emerald-500/20', 'border-emerald-400', 'text-emerald-300');
+                    pill.classList.remove('bg-slate-900/90', 'border-slate-700', 'text-slate-300');
+                } else {
+                    pill.classList.remove('active', 'bg-emerald-500/20', 'border-emerald-400', 'text-emerald-300');
+                    pill.classList.add('bg-slate-900/90', 'border-slate-700', 'text-slate-300');
+                }
+            });
+            if (extractedTextarea.value.trim().length > 0) {
+                analyzeIngredients(extractedTextarea.value);
+            }
+        });
 
         // --- 2. Image Upload, Drag-and-Drop, Paste & Webcam Logic ---
         const imageUpload = document.getElementById('image-upload');
@@ -394,7 +569,6 @@
             reader.readAsDataURL(file);
         }
 
-        // File Picker Triggers
         browseBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             imageUpload.click();
@@ -412,7 +586,6 @@
             }
         });
 
-        // Drag and Drop Support
         dropZone.addEventListener('dragover', (e) => {
             e.preventDefault();
             dropZone.classList.add('border-emerald-400', 'bg-emerald-950/20');
@@ -430,7 +603,6 @@
             }
         });
 
-        // Clipboard Paste Support (Ctrl+V / Cmd+V)
         window.addEventListener('paste', (e) => {
             const items = (e.clipboardData || e.originalEvent.clipboardData).items;
             for (const item of items) {
@@ -441,7 +613,6 @@
             }
         });
 
-        // Live Webcam Capture
         function stopWebcam() {
             if (webcamStream) {
                 webcamStream.getTracks().forEach(track => track.stop());
@@ -524,7 +695,7 @@
             }
         });
 
-        // --- 4. Fuzzy Matching & Hazard Analyzer ---
+        // --- 4. Fuzzy Matching & Health-Filtered Hazard Analyzer ---
         function levenshtein(a, b) {
             const matrix = Array.from({ length: a.length + 1 }, () => Array(b.length + 1).fill(0));
             for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
@@ -547,8 +718,11 @@
             const detected = [];
 
             CHEMICAL_DATABASE.forEach(chem => {
-                let matched = false;
+                // Check if this chemical belongs to at least one currently selected health profile
+                const matchingProfiles = chem.profiles.filter(p => activeProfiles.has(p));
+                if (matchingProfiles.length === 0) return;
 
+                let matched = false;
                 for (const alias of chem.aliases) {
                     if (alias.length >= 4 && cleanText.includes(alias)) {
                         matched = true;
@@ -570,17 +744,19 @@
                     if (matched) break;
                 }
 
-                if (matched) detected.push(chem);
+                if (matched) {
+                    detected.push({ ...chem, matchingProfiles });
+                }
             });
 
             if (detected.length === 0) {
-                summaryBadge.innerText = "0 Flagged Toxins Found";
+                summaryBadge.innerText = "0 Flagged Ingredients";
                 summaryBadge.className = "text-xs font-mono px-3 py-1 rounded-full bg-emerald-950 border border-emerald-700 text-emerald-400";
                 resultsContainer.innerHTML = `
                     <div class="p-6 rounded-2xl bg-emerald-950/30 border border-emerald-500/30 text-center space-y-2">
                         <i class="fa-solid fa-circle-check text-3xl text-emerald-400"></i>
-                        <h3 class="text-base font-bold text-white">No High-Risk Carcinogens or Flagged Additives Detected</h3>
-                        <p class="text-xs text-slate-300">None of the chemicals in our watchlist matched the extracted text. Double-check the text box on the left for any misread words.</p>
+                        <h3 class="text-base font-bold text-white">No Flagged Ingredients for Your Selected Health Profiles</h3>
+                        <p class="text-xs text-slate-300">None of the ingredients matched your active health filters. Try toggling additional health profiles above or check the extracted text on the left.</p>
                     </div>
                 `;
                 return;
@@ -590,7 +766,7 @@
             detected.sort((a, b) => rank[a.severity] - rank[b.severity]);
 
             const highCount = detected.filter(d => d.severity === 'HIGH').length;
-            summaryBadge.innerText = `${detected.length} Flagged (${highCount} High Concern)`;
+            summaryBadge.innerText = `${detected.length} Flagged (${highCount} High Alert)`;
             summaryBadge.className = highCount > 0
                 ? "text-xs font-mono px-3 py-1 rounded-full bg-red-950 border border-red-700 text-red-400"
                 : "text-xs font-mono px-3 py-1 rounded-full bg-amber-950 border border-amber-700 text-amber-400";
@@ -602,6 +778,10 @@
                     ? { border: 'border-amber-500/50', bg: 'bg-amber-950/20', badge: 'bg-amber-500/20 text-amber-400 border-amber-500/40', icon: 'fa-triangle-exclamation text-amber-400' }
                     : { border: 'border-cyan-500/40', bg: 'bg-cyan-950/20', badge: 'bg-cyan-500/20 text-cyan-400 border-cyan-500/40', icon: 'fa-circle-info text-cyan-400' };
 
+                const profileBadges = item.matchingProfiles.map(p => 
+                    `<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/40">${PROFILE_LABELS[p]}</span>`
+                ).join(' ');
+
                 return `
                     <div class="p-4 rounded-xl border ${styles.border} ${styles.bg} space-y-2">
                         <div class="flex flex-wrap items-center justify-between gap-2">
@@ -612,7 +792,10 @@
                                 ${item.severity} • ${item.tag}
                             </span>
                         </div>
-                        <div class="text-[11px] font-mono text-slate-400">${item.category}</div>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="text-[11px] font-mono text-slate-400">${item.category}</span>
+                            ${profileBadges}
+                        </div>
                         <p class="text-xs text-slate-200 leading-relaxed">${item.effects}</p>
                     </div>
                 `;
@@ -656,11 +839,26 @@
         }
 
         document.getElementById('sample-food-btn').addEventListener('click', () => {
-            loadSampleLabel("INGREDIENTS: ENRICHED WHEAT FLOUR, SUGAR, PALM OIL, POTASSIUM BROMATE, TITANIUM DIOXIDE, RED 40, BHA (PRESERVATIVE), SODIUM NITRITE, NATURAL AND ARTIFICIAL FLAVORS.");
+            // Automatically enable Diabetes + Celiac + Toxins when testing the sample food label so you can see all triggers
+            ["toxins", "diabetes", "celiac", "hypertension"].forEach(p => activeProfiles.add(p));
+            profilePills.forEach(pill => {
+                if (activeProfiles.has(pill.dataset.profile)) {
+                    pill.classList.add('active', 'bg-emerald-500/20', 'border-emerald-400', 'text-emerald-300');
+                    pill.classList.remove('bg-slate-900/90', 'border-slate-700', 'text-slate-300');
+                }
+            });
+            loadSampleLabel("INGREDIENTS: ENRICHED WHEAT FLOUR, HIGH-FRUCTOSE CORN SYRUP, MALTODEXTRIN, CANE SUGAR, PALM OIL, MONOSODIUM GLUTAMATE, POTASSIUM BROMATE, TITANIUM DIOXIDE, RED 40, BHA (PRESERVATIVE), SODIUM NITRITE.");
         });
 
         document.getElementById('sample-makeup-btn').addEventListener('click', () => {
-            loadSampleLabel("INGREDIENTS: AQUA, TALC, CYCLOPENTASILOXANE, PROPYLPARABEN, METHYLPARABEN, DMDM HYDANTOIN, PTFE, PARFUM, CI 77891 (TITANIUM DIOXIDE), RED 40 LAKE.");
+            ["toxins", "sensitive-skin", "pregnancy"].forEach(p => activeProfiles.add(p));
+            profilePills.forEach(pill => {
+                if (activeProfiles.has(pill.dataset.profile)) {
+                    pill.classList.add('active', 'bg-emerald-500/20', 'border-emerald-400', 'text-emerald-300');
+                    pill.classList.remove('bg-slate-900/90', 'border-slate-700', 'text-slate-300');
+                }
+            });
+            loadSampleLabel("INGREDIENTS: AQUA, TALC, SODIUM LAURYL SULFATE, RETINYL PALMITATE, PROPYLPARABEN, METHYLPARABEN, DMDM HYDANTOIN, PTFE, PARFUM, CI 77891 (TITANIUM DIOXIDE), RED 40 LAKE.");
         });
     </script>
 </body>
