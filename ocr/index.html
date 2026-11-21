@@ -91,7 +91,7 @@
                 Ingredient & <span class="text-gradient-emerald">Toxin Scanner</span>
             </h1>
             <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
-                Upload a photo of any <strong class="text-white">food label, cosmetic, or skincare bottle</strong> (or paste an ingredient list). The in-browser computer vision pipeline enhances text contrast, extracts ingredients via Tesseract WASM, and flags known carcinogens, endocrine disruptors, and harmful additives.
+                Upload, drag-and-drop, paste (<kbd class="px-1.5 py-0.5 bg-slate-800 rounded text-xs font-mono">Ctrl+V</kbd>), or snap a photo of any <strong class="text-white">food label, cosmetic, or skincare bottle</strong>. The in-browser computer vision pipeline enhances contrast, extracts ingredients via Tesseract WASM, and flags known carcinogens, endocrine disruptors, and harmful additives.
             </p>
         </div>
 
@@ -102,26 +102,50 @@
                 
                 <!-- Upload / Camera Box -->
                 <div class="glass-panel p-6 rounded-2xl border border-slate-800 space-y-4">
-                    <div class="flex items-center justify-between">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
                         <h2 class="text-sm font-bold text-white uppercase tracking-wider font-mono flex items-center gap-2">
                             <i class="fa-solid fa-camera text-emerald-400"></i> 1. Capture or Upload Label
                         </h2>
                         <div class="flex gap-2">
-                            <button id="sample-food-btn" class="text-[11px] font-mono px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-slate-700 transition-colors">
+                            <button type="button" id="sample-food-btn" class="text-[11px] font-mono px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-slate-700 transition-colors">
                                 Test Food Label
                             </button>
-                            <button id="sample-makeup-btn" class="text-[11px] font-mono px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-purple-400 border border-slate-700 transition-colors">
+                            <button type="button" id="sample-makeup-btn" class="text-[11px] font-mono px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-purple-400 border border-slate-700 transition-colors">
                                 Test Cosmetic Label
                             </button>
                         </div>
                     </div>
 
-                    <label for="image-upload" class="border-2 border-dashed border-slate-700 hover:border-emerald-400/70 rounded-xl p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-colors bg-slate-950/60">
-                        <i class="fa-solid fa-cloud-arrow-up text-3xl text-emerald-400 mb-2"></i>
-                        <span class="text-sm font-semibold text-white">Click to upload or take a photo</span>
-                        <span class="text-xs text-slate-400 mt-1">Supports JPG, PNG, WebP • Processed locally on your device</span>
-                        <input type="file" id="image-upload" accept="image/*" capture="environment" class="hidden">
-                    </label>
+                    <!-- Hidden native file input -->
+                    <input type="file" id="image-upload" accept="image/*" class="hidden">
+
+                    <!-- Interactive Dropzone -->
+                    <div id="drop-zone" role="button" tabindex="0" class="border-2 border-dashed border-slate-700 hover:border-emerald-400/70 rounded-xl p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-colors bg-slate-950/60">
+                        <i class="fa-solid fa-cloud-arrow-up text-3xl text-emerald-400 mb-2 pointer-events-none"></i>
+                        <span class="text-sm font-semibold text-white pointer-events-none">Click to browse, drag & drop, or Ctrl+V paste an image</span>
+                        <span class="text-xs text-slate-400 mt-1 pointer-events-none">Supports JPG, PNG, WebP • Processed locally in your browser</span>
+                        <div class="flex flex-wrap gap-3 mt-4">
+                            <button type="button" id="browse-btn" class="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs transition-colors">
+                                <i class="fa-solid fa-folder-open mr-1"></i> Choose Image File
+                            </button>
+                            <button type="button" id="webcam-btn" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-xs transition-colors">
+                                <i class="fa-solid fa-video mr-1 text-cyan-400"></i> Use Camera
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Live Webcam View (Hidden by default) -->
+                    <div id="webcam-wrapper" class="hidden space-y-3 p-3 rounded-xl bg-slate-950 border border-cyan-500/40">
+                        <video id="webcam-video" autoplay playsinline class="w-full max-h-64 rounded-lg bg-black object-contain"></video>
+                        <div class="flex gap-2">
+                            <button type="button" id="snap-photo-btn" class="flex-1 py-2.5 rounded-lg bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-xs">
+                                <i class="fa-solid fa-camera mr-1"></i> Capture Frame
+                            </button>
+                            <button type="button" id="close-webcam-btn" class="px-4 py-2.5 rounded-lg bg-slate-800 text-slate-300 text-xs font-mono">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
 
                     <!-- CV Preprocessing Controls -->
                     <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-3 text-xs font-mono">
@@ -141,7 +165,7 @@
                         <div class="relative rounded-xl overflow-hidden border border-slate-800 bg-black flex justify-center max-h-72">
                             <canvas id="cv-canvas" class="max-h-72 w-auto object-contain"></canvas>
                         </div>
-                        <button id="run-ocr-btn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-400 to-cyan-500 text-slate-950 font-bold text-sm hover:shadow-lg hover:shadow-emerald-500/20 transition-all flex items-center justify-center gap-2">
+                        <button type="button" id="run-ocr-btn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-400 to-cyan-500 text-slate-950 font-bold text-sm hover:shadow-lg hover:shadow-emerald-500/20 transition-all flex items-center justify-center gap-2">
                             <i class="fa-solid fa-wand-magic-sparkles"></i> Extract & Analyze Ingredients
                         </button>
                     </div>
@@ -164,7 +188,7 @@
                         <h2 class="text-sm font-bold text-white uppercase tracking-wider font-mono flex items-center gap-2">
                             <i class="fa-solid fa-align-left text-cyan-400"></i> 2. Extracted Ingredient Text
                         </h2>
-                        <button id="reanalyze-text-btn" class="text-xs font-mono px-3 py-1.5 rounded-lg bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 hover:bg-cyan-500/30 transition-colors">
+                        <button type="button" id="reanalyze-text-btn" class="text-xs font-mono px-3 py-1.5 rounded-lg bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 hover:bg-cyan-500/30 transition-colors">
                             Re-Scan Text <i class="fa-solid fa-rotate-right ml-1"></i>
                         </button>
                     </div>
@@ -316,8 +340,16 @@
             }
         ];
 
-        // --- 2. Canvas Image Preprocessing & Upload Logic ---
+        // --- 2. Image Upload, Drag-and-Drop, Paste & Webcam Logic ---
         const imageUpload = document.getElementById('image-upload');
+        const dropZone = document.getElementById('drop-zone');
+        const browseBtn = document.getElementById('browse-btn');
+        const webcamBtn = document.getElementById('webcam-btn');
+        const webcamWrapper = document.getElementById('webcam-wrapper');
+        const webcamVideo = document.getElementById('webcam-video');
+        const snapPhotoBtn = document.getElementById('snap-photo-btn');
+        const closeWebcamBtn = document.getElementById('close-webcam-btn');
+
         const cvCanvas = document.getElementById('cv-canvas');
         const ctx = cvCanvas.getContext('2d');
         const canvasWrapper = document.getElementById('canvas-wrapper');
@@ -326,6 +358,7 @@
         const grayscaleToggle = document.getElementById('grayscale-toggle');
 
         let loadedImage = null;
+        let webcamStream = null;
 
         function renderProcessedCanvas() {
             if (!loadedImage) return;
@@ -346,9 +379,8 @@
             ctx.drawImage(loadedImage, 0, 0, w, h);
         }
 
-        imageUpload.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
+        function handleImageFile(file) {
+            if (!file || !file.type.startsWith('image/')) return;
             const reader = new FileReader();
             reader.onload = (event) => {
                 const img = new Image();
@@ -360,7 +392,91 @@
                 img.src = event.target.result;
             };
             reader.readAsDataURL(file);
+        }
+
+        // File Picker Triggers
+        browseBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            imageUpload.click();
         });
+
+        dropZone.addEventListener('click', (e) => {
+            if (e.target !== webcamBtn && !webcamBtn.contains(e.target)) {
+                imageUpload.click();
+            }
+        });
+
+        imageUpload.addEventListener('change', (e) => {
+            if (e.target.files && e.target.files[0]) {
+                handleImageFile(e.target.files[0]);
+            }
+        });
+
+        // Drag and Drop Support
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('border-emerald-400', 'bg-emerald-950/20');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('border-emerald-400', 'bg-emerald-950/20');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('border-emerald-400', 'bg-emerald-950/20');
+            if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                handleImageFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        // Clipboard Paste Support (Ctrl+V / Cmd+V)
+        window.addEventListener('paste', (e) => {
+            const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+            for (const item of items) {
+                if (item.type.indexOf('image') === 0) {
+                    handleImageFile(item.getAsFile());
+                    break;
+                }
+            }
+        });
+
+        // Live Webcam Capture
+        function stopWebcam() {
+            if (webcamStream) {
+                webcamStream.getTracks().forEach(track => track.stop());
+                webcamStream = null;
+            }
+            webcamWrapper.classList.add('hidden');
+        }
+
+        webcamBtn.addEventListener('click', async (e) => {
+            e.stopPropagation();
+            try {
+                webcamStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+                webcamVideo.srcObject = webcamStream;
+                webcamWrapper.classList.remove('hidden');
+            } catch (err) {
+                alert('Camera access denied or unavailable. Please upload an image file instead.');
+            }
+        });
+
+        snapPhotoBtn.addEventListener('click', () => {
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = webcamVideo.videoWidth;
+            tempCanvas.height = webcamVideo.videoHeight;
+            tempCanvas.getContext('2d').drawImage(webcamVideo, 0, 0);
+            const img = new Image();
+            img.onload = () => {
+                loadedImage = img;
+                canvasWrapper.classList.remove('hidden');
+                renderProcessedCanvas();
+                stopWebcam();
+            };
+            img.src = tempCanvas.toDataURL('image/png');
+        });
+
+        closeWebcamBtn.addEventListener('click', stopWebcam);
 
         contrastSlider.addEventListener('input', () => {
             contrastVal.innerText = `${contrastSlider.value}%`;
